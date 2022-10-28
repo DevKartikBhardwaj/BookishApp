@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookish - Home</title>
+    <link rel="shortcut icon" href="./images/Untitled design (4).png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../style/style.css">
+</head>
+
+<body>
+    {{>Navbar}}
+    <section class="banners-area">
+        <div class="banner-area">
+            <img src="../../images/Banner1.png" class="banner-img" alt="">
+            <img src="../../images/Banner2.png" class="banner-img" alt="">
+            <img src="../../images/Banner3.png" class="banner-img" alt="">
+            <img src="../../images/Banner4.png" class="banner-img" alt="">
+        </div>
+        <div class="banner-navigation">
+            <div class="dot" id="dot-1" onclick="setBg1()"></div>
+            <div class="dot" id="dot-2" onclick="setBg2()"></div>
+            <div class="dot" id="dot-3" onclick="setBg3()"></div>
+            <div class="dot" id="dot-4" onclick="setBg4()"></div>
+        </div>
+    </section>
+
+
+    <section id="main-section">
+        {{>ProductRow Heading='Bookish Personal Recommendation - Featured Books '}}
+        {{>ProductRow Heading='Discover with New Arrivals'}}
+        {{>ProductRow Heading='Competetive Exams (JEE Mains/Advanced | NEET | CUET | CAT | NIMCET | UPSC)'}}
+        <div class="banner-2">
+            <img style="width: 100%;" src="../../images/Explore.png" alt="">
+        </div>
+        {{>ProductRow Heading='Engineering Books'}}
+        {{>ProductRow Heading='Boards (NCERT | Solved Papers | Question Banks ) '}}
+        {{>ProductRow Heading='Others (Medical | Law | etc)'}}
+    </section>
+
+    {{>Footer}}
+    <script src="../../script/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookish - Sell</title>
+    <link rel="shortcut icon" href="./images/Untitled design (4).png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../style/style.css">
+</head>
+
+<body>
+    {{>partialNav}}
+    <section id="sellers-form-area">
+        <div id="video-wrap"></div>
+        <div id="background-video">
+            <video autoplay muted loop src="./images/Library - 1310.mp4"></video>
+        </div>
+        <div class="form-wrap">
+            <h2 class="primary-heading" style="text-align: center; color: white;"><span class="primary-heading"
+                    style="color: violet;">S</span>ell your
+                Product</h2>
+            <form action="#" id="sellers-form">
+                <div class="form-input">
+                    <label for="product-title" class="sub-heading">Title</label>
+                    <input id="product-title" name="product-title" placeholder="Enter Product Title" type="text">
+                </div>
+
+                <div class="form-input">
+                    <label for="product-MRP">M.R.P</label>
+                    <input id="product-MRP" placeholder="Enter Product Price" name="product-MRP" type="text">
+                </div>
+
+
+                <div class="form-input">
+                    <label for="product-category">Category</label>
+                    <select id="product-category" name="product-category">
+                        <option class="product-category-option" value="" selected>-- Select Category --</option>
+                        <option class="product-category-option" value="Engineering">Engineering</option>
+                        <option class="product-category-option" value="Medical">Medical</option>
+                        <option class="product-category-option" value="Law">Law</option>
+                        <option class="product-category-option" value="NCERT">NCERT</option>
+                        <option class="product-category-option" value="Competetive-Exams">Competetive-Exams</option>
+                        <option class="product-category-option" value="Others">Others</option>
+                    </select>
+                </div>
+
+                <div class="form-input">
+                    <label for="product-About">About this product</label>
+                    <textarea id="product-About" name="product-About" cols="30" rows="10">Enter Product Specs</textarea>
+                </div>
+                <div class="form-input" id="form-img-div">
+                    <input type="file" name="product-img" id="product-img" style="margin:auto;"
+                        accept="image/png,image/jpg">
+                </div>
+                <button type="submit" class="primary-btn" id="product-submit-btn">Sell-Product</button>
+                <button type="reset" class="primary-btn" id="product-reset-btn">Reset-Form</button>
+            </form>
+        </div>
+    </section>
+    {{>Footer}}
+    <script src="../../script/script.js"></script>
+</body>
+
+</html>
