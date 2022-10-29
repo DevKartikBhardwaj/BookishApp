@@ -4,14 +4,16 @@
   "description": "This appilacation is going to be used for buying and selling old notebooks>",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "Kartik Bhardwaj",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "hbs": "^4.2.0",
-    "mongoose": "^6.7.0"
+    "mongoose": "^6.7.0",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

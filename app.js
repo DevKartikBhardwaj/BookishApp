@@ -1,10 +1,11 @@
+require('dotenv').config();
 const express = require("express");
 const hbs = require("hbs");
 const path = require("path");
 const app = express();
+const port = process.env.PORT;
 
 
-const port = 3000;
 
 app.use(express.static('static'))
 app.use(express.urlencoded({ extended: "true" }));
@@ -27,14 +28,18 @@ app.get("/sell", (req, res) => {
 })
 
 app.post("/sell", (req, res) => {
-    console.log(req.body);
-    var newProduct = new product(req.body);
-    newProduct.save((err) => {
-        if (err) {
-            return console.error(err);
-        }
-    })
-    res.json(req.body);
+    // console.log(req.body);
+    try {
+        var newProduct = new product(req.body);
+        newProduct.save((err) => {
+            if (err) {
+                return console.error(err);
+            }
+        })
+        res.json({ success: true, data: res.body });
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 app.listen(port, () => {
