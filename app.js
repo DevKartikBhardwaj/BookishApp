@@ -63,12 +63,13 @@ app.post("/sell", fetchuser, (req, res) => {
                 productMRP: req.body.productMRP,
                 productCategory: req.body.productCategory,
                 productDescription: req.body.productDescription,
+                user: req.user.id,
                 productImage: {
                     data: req.file.path,
                     contentType: 'image/png'
                 }
             });
-            console.log(newProduct);
+
             newProduct.save((err) => {
                 if (err) {
                     return console.error(err.msg);
@@ -93,20 +94,22 @@ app.post("/user/signup",
         }
         try {
             const passwordHash = bcrypt.hashSync(req.body.userPassword, saltRounds);
-            const currentUser = await user.create({
+            const newUser = new user({
                 userName: req.body.userName,
                 userEmail: req.body.userEmail,
                 userPassword: passwordHash,
             })
+
             const data = {
                 user: {
-                    id: user.id
+                    id: newUser.id
                 }
             }
+
             const authtoken = jwt.sign(data, JWT_SECRET);
 
+            newUser.save();
 
-            // res.json(user)
             res.json({ success: true, authtoken })
         } catch (error) {
             console.log(error.message);
@@ -118,7 +121,9 @@ app.post("/user/signup",
 
 app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLength({ min: 5 })], async (req, res) => {
     const { userEmail, userPassword } = req.body;
+    console.log(user);
     var userExist = await user.findOne({ userEmail });
+
     if (!userExist) {
         res.status(404).send("Enter valid credentials");
     }
@@ -128,9 +133,10 @@ app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLen
     }
     const data = {
         user: {
-            id: user.id
+            id: userExist.id
         }
     }
+    console.log(data);
     const authtoken = jwt.sign(data, JWT_SECRET);
 
 
