@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const productSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
     productTitle: {
         type: String,
         required: true
@@ -16,6 +20,10 @@ const productSchema = new Schema({
     productDescription: {
         type: String,
         required: true
+    },
+    productImage: {
+        data: Buffer, //Buffer means data is in binary form
+        type: Object
     },
     date: {
         type: Date,
