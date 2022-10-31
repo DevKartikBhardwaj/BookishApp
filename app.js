@@ -121,7 +121,6 @@ app.post("/user/signup",
 
 app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLength({ min: 5 })], async (req, res) => {
     const { userEmail, userPassword } = req.body;
-    console.log(user);
     var userExist = await user.findOne({ userEmail });
 
     if (!userExist) {
@@ -136,7 +135,6 @@ app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLen
             id: userExist.id
         }
     }
-    console.log(data);
     const authtoken = jwt.sign(data, JWT_SECRET);
 
 
@@ -147,6 +145,16 @@ app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLen
 })
 
 
+//request 4:) 'GET' fetching product details
+app.get('/fetch', fetchuser, async (req, res) => {
+    try {
+
+        const data = await product.find({ user: req.user.id });
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+})
 
 
 app.listen(port, () => {
