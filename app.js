@@ -82,6 +82,11 @@ app.post("/sell", fetchuser, (req, res) => {
 
 })
 
+// Req:"Get" User : login
+app.get('/signup', (req, res) => {
+    res.status(400).render("Signup");
+})
+
 //Req2:) "POST"  Creating user :signup
 
 app.post("/user/signup",
@@ -116,6 +121,13 @@ app.post("/user/signup",
             res.status(500).send("Internal Server Error");
         }
     })
+
+
+// Req:"Get" User : login
+app.get('/login', (req, res) => {
+    res.status(400).render("login");
+})
+
 
 //Req 3:) 'POST' User:login
 
