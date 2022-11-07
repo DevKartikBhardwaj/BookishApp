@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: #EAEDED;
+}
+
+.main-section {
+    height: 88vh;
+    margin: 2.7em 3em;
+    /* border: 2px solid red; */
+    padding: 0 2em;
+    background-color: white;
+    overflow: auto;
+}
+
+.main-section>h2 {
+    text-align: center;
+    padding-top: 1em;
+}
+
+.cart-item-cards-wrapper {
+    margin: 2em 0;
+}
+
+.cart-item-card {
+    display: flex;
+    /* border: 1px solid black; */
+    height: 20vh;
+}
+
+.img-frame {
+    width: 20%;
+    text-align: center;
+    background-color: gray;
+}
+
+.img-frame>img {
+    height: -webkit-fill-available;
+}
+
+.card-content {
+    background: black;
+    color: white;
+    width: 73%;
+    padding: 0 3em;
+    padding-top: 1em;
+
+}
+
+.card-content>h2 {
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid violet;
+}
+
+.btn-wrapper {
+    margin-top: 0.5em;
+}
+
+.card-btn {
+    width: 16%;
+    padding: 0.4em;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.buy-btn {
+    background-color: blue;
+    transition: all 0.1s ease-in;
+}
+
+.buy-btn:focus {
+    transform: scale(0.98);
+    background-color: rgba(0, 0, 255, 0.829);
+
+}
+
+.remove-btn {
+    background-color: red;
+    transition: all 0.1s ease-in;
+}
+
+.remove-btn:focus {
+    transform: scale(0.98);
+    background-color: rgba(255, 0, 0, 0.864);
+
+}

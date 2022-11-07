@@ -98,24 +98,31 @@ app.post("/user/signup",
             return res.status(400).json({ errors: errors.array() });
         }
         try {
-            const passwordHash = bcrypt.hashSync(req.body.userPassword, saltRounds);
-            const newUser = new user({
-                userName: req.body.userName,
-                userEmail: req.body.userEmail,
-                userPassword: passwordHash,
-            })
+            const { userEmail } = req.body;
+            var userExist = await user.findOne({ userEmail });
+            if (!userExist) {
+                const passwordHash = bcrypt.hashSync(req.body.userPassword, saltRounds);
+                const newUser = new user({
+                    userName: req.body.userName,
+                    userEmail: req.body.userEmail,
+                    userPassword: passwordHash,
+                })
 
-            const data = {
-                user: {
-                    id: newUser.id
+                const data = {
+                    user: {
+                        id: newUser.id
+                    }
                 }
+
+                const authtoken = jwt.sign(data, JWT_SECRET);
+
+                newUser.save();
+
+                res.json({ success: true, authtoken })
             }
-
-            const authtoken = jwt.sign(data, JWT_SECRET);
-
-            newUser.save();
-
-            res.json({ success: true, authtoken })
+            else {
+                res.status(400).send("user already exist");
+            }
         } catch (error) {
             console.log(error.message);
             res.status(500).send("Internal Server Error");
@@ -160,9 +167,35 @@ app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLen
 //request 4:) 'GET' fetching product details
 app.get('/fetch', fetchuser, async (req, res) => {
     try {
-
         const data = await product.find({ user: req.user.id });
         res.status(200).json(data);
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+})
+
+
+//dashboard related requests
+app.get('/dashboard/userdetails', (req, res) => {
+    try {
+        res.status(200).render("Userdetails");
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+})
+app.get('/dashboard/listedbooks', (req, res) => {
+    try {
+        res.status(200).render("listedbooks");
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+})
+
+
+//request for cart
+app.get("/cart", (req, res) => {
+    try {
+        res.status(200).render('Cart');
     } catch (error) {
         res.status(404).send(error.message);
     }

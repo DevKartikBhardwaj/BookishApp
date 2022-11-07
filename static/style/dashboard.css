@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: #EAEDED;
+}
+
+#main {
+    /* border: 2px solid red; */
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 0;
+}
+
+.left-section {
+    /* border: 2px solid black; */
+    box-sizing: border-box;
+    height: 90vh;
+    width: 20vw;
+    background-color: white;
+    border-top-left-radius: 2rem;
+}
+
+#dashboard-img {
+    border-top-left-radius: 2rem;
+}
+
+.left-section>ul>li {
+    list-style: none;
+    text-align: center;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
+}
+
+.left-section>ul>li>a {
+
+    text-decoration: none;
+    /* border: 1px solid blue; */
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 0.2em;
+    transition: all 0.2s ease-in;
+}
+
+.left-section>ul>li>a:hover {
+    background-color: violet;
+    color: white;
+}
+
+.right-section-details {
+    /* border: 2px solid blue; */
+    box-sizing: border-box;
+    height: 90vh;
+    width: 75vw;
+    background-color: white;
+    border-bottom-right-radius: 2rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+.right-section-details>h1 {
+    margin-bottom: 2rem;
+}
+
+.right-section-details>ul>li {
+    list-style: none;
+    margin: 1rem;
+}
+
+.user-detail-items {
+    color: #3b363678;
+}
+
+.colon-space {
+    margin: 5rem;
+}
+
+.user-detail-value {
+    color: black;
+}
+
+#Edit-btn {
+    background-color: black;
+    color: white;
+    padding: 0.5rem 9.8rem;
+    cursor: pointer;
+    border-radius: 1.2em;
+    margin-top: 2em;
+    transition: all 0.2s ease-in;
+    border: none;
+}
+
+#Edit-btn:hover {
+    color: black;
+    background-color: violet;
+}
+
+/* //listing books part style of dashboard */
+
+
+.right-section-listing {
+    /* border: 2px solid blue; */
+    box-sizing: border-box;
+    height: 90vh;
+    width: 75vw;
+    background-color: white;
+    border-bottom-right-radius: 2rem;
+    padding: 2rem;
+    overflow: auto;
+}
+
+
+.right-section-listing>h1 {
+    text-align: center;
+}
+
+.listed-books-card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 2em;
+}
+
+.listed-book-card {
+    width: 20vw;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    margin-bottom: 1.3em;
+    min-width: 14em;
+}
+
+.img-frame {
+    background-color: gray;
+    height: 25vh;
+    text-align: center;
+}
+
+.img-frame>img {
+    height: -webkit-fill-available;
+}
+
+.card-content {
+    padding: 0.5em;
+}
+
+.card-title {
+    border-bottom: 1px solid violet;
+}
+
+.btn-wrapper {
+    margin-top: 1em;
+}
+
+.card-btn {
+    width: 49%;
+    padding: 0.4em;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

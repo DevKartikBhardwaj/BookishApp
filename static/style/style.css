@@ -375,3 +375,79 @@ footer {
 .brand-color {
     color: violet;
 }
+
+#nav-logo-wrapper {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav-logo {
+    font-size: 20px;
+    color: white;
+}
+
+#nav-user {
+    cursor: pointer;
+}
+
+.sub-menu {
+    display: none;
+    border: 1px solid white;
+    box-sizing: border-box;
+    z-index: 5;
+    position: absolute;
+    background-color: #0f1111;
+}
+
+.sub-menu>ul>li {
+    list-style: none;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.list-icon {
+    font-size: 1.2em;
+    margin: 0 0.5em;
+}
+
+.sub-menu-item {
+    text-decoration: none;
+    color: white;
+    margin: 0.5em 0;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    font-size: 1.6em;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.sub-menu-item:hover {
+    background-color: violet;
+}
+
+
+
+#sub-menu-item1 {
+    padding: 0.4em 5.78em 0.3em 0;
+}
+
+#sub-menu-item2 {
+    padding: 0.4em 4.8em 0.3em 0;
+}
+
+#sub-menu-item3 {
+    padding: 0.4em 3.2em 0.3em 0;
+}
+
+#nav-user:hover .sub-menu {
+    display: block;
+}
+
+/* #nav-user:active .sub-menu {
+    display: block;
+    position: absolute;
+    padding: 0.5em 0.5em;
+    background-color: blue;
+} */
