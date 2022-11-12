@@ -16,19 +16,20 @@
         </div>
         <div class="block-right">
             <h2>Create Account</h2>
-            <form action="#" class="main-form">
+            <form action="/signup" method="post" target="_blank" onsubmit="handleSubmit()" class="main-form">
+
                 <label for="name">Username</label>
-                <input type="text" id="name" class="r-input">
+                <input type="text" id="name" name="userName" class="r-input" autocomplete="name">
 
 
                 <label for="email">Email</label>
-                <input type="text" id="email" class="r-input">
+                <input type="text" id="email" name="userEmail" class="r-input">
 
                 <label for="Password">Password</label>
-                <input type="password" class="r-input" name="Password" id="Password">
+                <input type="password" class="r-input" name="userPassword" id="Password" autocomplete="new-password">
 
                 <label for="cPassword">Confirm Password</label>
-                <input type="password" class="r-input" name="cPassword" id="cPassword">
+                <input type="password" class="r-input" name="cPassword" id="cPassword" autocomplete="new-password">
 
                 <button type="submit" id="smt-btn" class="primary-btn">Signup</button>
             </form>
@@ -36,6 +37,7 @@
             <p>Existing user?<a href="/login">Login</a></p>
         </div>
     </div>
+    <script src="../../script/signup-login.js"></script>
 </body>
 
 </html>

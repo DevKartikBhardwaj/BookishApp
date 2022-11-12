@@ -32,6 +32,7 @@ require("./src/db/conn")
 //omporting all the models
 const product = require("./src/models/product");
 const user = require("./src/models/User");
+const { response, json } = require('express');
 
 //configuring disk storage for multer
 const Storage = multer.diskStorage({
@@ -84,12 +85,12 @@ app.post("/sell", fetchuser, (req, res) => {
 
 // Req:"Get" User : login
 app.get('/signup', (req, res) => {
-    res.status(400).render("Signup");
+    res.status(200).render("Signup");
 })
 
 //Req2:) "POST"  Creating user :signup
 
-app.post("/user/signup",
+app.post("/signup",
     [body('userName').isLength({ min: 5 }), body('userEmail').isEmail(), body('userPassword').isLength({ min: 5 })],
     async (req, res) => {
         // Finds the validation errors in this request and wraps them in an object with handy functions
@@ -98,27 +99,31 @@ app.post("/user/signup",
             return res.status(400).json({ errors: errors.array() });
         }
         try {
-            const { userEmail } = req.body;
+            const { userEmail, userPassword, cPassword } = req.body;
             var userExist = await user.findOne({ userEmail });
             if (!userExist) {
-                const passwordHash = bcrypt.hashSync(req.body.userPassword, saltRounds);
-                const newUser = new user({
-                    userName: req.body.userName,
-                    userEmail: req.body.userEmail,
-                    userPassword: passwordHash,
-                })
+                if (userPassword == cPassword) {
+                    const passwordHash = bcrypt.hashSync(req.body.userPassword, saltRounds);
+                    const newUser = new user({
+                        userName: req.body.userName,
+                        userEmail: req.body.userEmail,
+                        userPassword: passwordHash,
+                    })
 
-                const data = {
-                    user: {
-                        id: newUser.id
+                    const data = {
+                        user: {
+                            id: newUser.id
+                        }
                     }
+
+                    const authtoken = jwt.sign(data, JWT_SECRET);
+
+                    newUser.save();
+                    res.json({ success: true, authtoken });
+                    // res.status(200).render('login');
+                } else {
+                    res.status(404).send({ cPassword: false });
                 }
-
-                const authtoken = jwt.sign(data, JWT_SECRET);
-
-                newUser.save();
-
-                res.json({ success: true, authtoken })
             }
             else {
                 res.status(400).send("user already exist");
@@ -201,7 +206,41 @@ app.get("/cart", (req, res) => {
     }
 })
 
+app.get('/eg', (req, res) => {
+    res.json({
+        "id": "0001",
+        "type": "donut",
+        "name": "Cake",
+        "ppu": 0.55,
+        "batters":
+        {
+            "batter":
+                [
+                    { "id": "1001", "type": "Regular" },
+                    { "id": "1002", "type": "Chocolate" },
+                    { "id": "1003", "type": "Blueberry" },
+                    { "id": "1004", "type": "Devil's Food" }
+                ]
+        },
+        "topping":
+            [
+                { "id": "5001", "type": "None" },
+                { "id": "5002", "type": "Glazed" },
+                { "id": "5005", "type": "Sugar" },
+                { "id": "5007", "type": "Powdered Sugar" },
+                { "id": "5006", "type": "Chocolate with Sprinkles" },
+                { "id": "5003", "type": "Chocolate" },
+                { "id": "5004", "type": "Maple" }
+            ]
+    });
+})
+
 
 app.listen(port, () => {
     console.log(`app is running at http://localhost:${port}`);
 })
+
+
+
+
+
