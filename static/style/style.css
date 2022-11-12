@@ -444,10 +444,3 @@ footer {
 #nav-user:hover .sub-menu {
     display: block;
 }
-
-/* #nav-user:active .sub-menu {
-    display: block;
-    position: absolute;
-    padding: 0.5em 0.5em;
-    background-color: blue;
-} */

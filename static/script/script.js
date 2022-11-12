@@ -1,5 +1,3 @@
-console.log("Hello world")
-
 let banner = document.getElementsByClassName("banner-img");
 let dots = document.getElementsByClassName("banner-navigation");
 Array.from(banner).forEach((element) => {

@@ -137,7 +137,7 @@ app.post("/signup",
 
 // Req:"Get" User : login
 app.get('/login', (req, res) => {
-    res.status(400).render("login");
+    res.status(200).render("login");
 })
 
 
