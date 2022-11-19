@@ -1,9 +1,6 @@
 /* ************************************************************************************************************/
 /* *****************************************STYLE FOR MODAL WINDOW*********************************************/
 /* ************************************************************************************************************/
-.danger {
-    background-color: red;
-}
 
 .modalWindow {
     color: white;
@@ -11,11 +8,15 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    visibility: visible;
+    height: 3em;
+    margin-bottom: 2em;
 }
 
 #information {
-    font-size: 1.5rem;
-    padding: 1em;
+    font-size: 1.2rem;
+    padding: 0.5em;
     font-weight: bold;
     font-family: monospace;
+    margin: 0;
 }

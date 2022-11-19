@@ -15,7 +15,6 @@ const JWT_SECRET = process.env.JWT_SECRET_STRING;
 const port = process.env.PORT;
 
 
-
 app.use(express.static('static'))
 app.use(express.urlencoded({ extended: "true" }));
 app.use(express.json());
@@ -29,7 +28,7 @@ hbs.registerPartials(path.join(__dirname, '/static/Templates/partials'));
 
 require("./src/db/conn")
 
-//omporting all the models
+//importing all the models
 const product = require("./src/models/product");
 const user = require("./src/models/User");
 const { response, json } = require('express');
@@ -48,8 +47,10 @@ const upload = multer({ storage: Storage }).single('testImage');
 app.get("/", (req, res) => {
     res.status(200).render("Home");
 })
-app.get("/sell", (req, res) => {
-    res.status(200).render("Sell");
+
+app.get("/sell", fetchuser, (req, res) => {
+    console.log("inside");
+    res.status(200).render('Sell');
 })
 
 //Request 1:)POST request for submitting the product form
@@ -120,13 +121,12 @@ app.post("/signup",
 
                     newUser.save();
                     res.json({ success: true, authtoken });
-                    // res.status(200).render('login');
                 } else {
-                    res.status(404).send({ cPassword: false });
+                    res.json({ success: false, cPassword: false });
                 }
             }
             else {
-                res.status(400).send("user already exist");
+                res.json({ success: false, user: true });
             }
         } catch (error) {
             console.log(error.message);
@@ -143,29 +143,28 @@ app.get('/login', (req, res) => {
 
 //Req 3:) 'POST' User:login
 
-app.post('/user/login', [body('userEmail').isEmail(), body('userPassword').isLength({ min: 5 })], async (req, res) => {
+app.post('/login', [body('userEmail').isEmail(), body('userPassword').isLength({ min: 5 })], async (req, res) => {
     const { userEmail, userPassword } = req.body;
     var userExist = await user.findOne({ userEmail });
-
+    let success = false;
     if (!userExist) {
-        res.status(404).send("Enter valid credentials");
+        res.json({ success });
     }
-    var passCompare = await bcrypt.compare(userPassword, userExist.userPassword);
-    if (!passCompare) {
-        res.status(404).send("Enter valid credentials");
-    }
-    const data = {
-        user: {
-            id: userExist.id
+    try {
+        var passCompare = await bcrypt.compare(userPassword, userExist.userPassword);
+        if (!passCompare) {
+            res.json({ success });
         }
+        const data = {
+            user: {
+                id: userExist.id
+            }
+        }
+        const authtoken = jwt.sign(data, JWT_SECRET);
+        res.json({ success: true, authtoken })
+    } catch (error) {
+
     }
-    const authtoken = jwt.sign(data, JWT_SECRET);
-
-
-    // res.json(user)
-    res.json({ success: true, authtoken })
-
-
 })
 
 
@@ -204,35 +203,6 @@ app.get("/cart", (req, res) => {
     } catch (error) {
         res.status(404).send(error.message);
     }
-})
-
-app.get('/eg', (req, res) => {
-    res.json({
-        "id": "0001",
-        "type": "donut",
-        "name": "Cake",
-        "ppu": 0.55,
-        "batters":
-        {
-            "batter":
-                [
-                    { "id": "1001", "type": "Regular" },
-                    { "id": "1002", "type": "Chocolate" },
-                    { "id": "1003", "type": "Blueberry" },
-                    { "id": "1004", "type": "Devil's Food" }
-                ]
-        },
-        "topping":
-            [
-                { "id": "5001", "type": "None" },
-                { "id": "5002", "type": "Glazed" },
-                { "id": "5005", "type": "Sugar" },
-                { "id": "5007", "type": "Powdered Sugar" },
-                { "id": "5006", "type": "Chocolate with Sprinkles" },
-                { "id": "5003", "type": "Chocolate" },
-                { "id": "5004", "type": "Maple" }
-            ]
-    });
 })
 
 

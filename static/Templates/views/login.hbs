@@ -8,21 +8,25 @@
     <title>Bookish - Best Store in India</title>
     <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../../style/login-signup.css">
+    <link rel="stylesheet" href="../../style/modal.css">
+
 </head>
 
 <body>
+    {{>ModalWindow}}
     <div class="main-Block">
         <div class="block-left" id="login-left"><img src="../../images/logo.png" id="register-img" alt="">
         </div>
         <div class="block-right">
             <h2>Sign-In</h2>
-            <form action="#" class="main-form">
+            <form id="loginForm" class="main-form">
 
                 <label for="Mobile">Email</label>
-                <input type="text" id="Mobile" class="r-input" autocomplete="username">
+                <input type="text" id="email" class="r-input" name="userEmail" autocomplete="username">
 
                 <label for="Password">Password</label>
-                <input type="password" class="r-input" name="Password" id="Password" autocomplete="current-password">
+                <input type="password" class="r-input" name="userPassword" id="Password"
+                    autocomplete="current-password">
 
                 <button type="submit" id="smt-btn" class="primary-btn">Login</button>
             </form>
@@ -30,6 +34,7 @@
             <p>Don't have Account?<a href="/signup">Register</a></p>
         </div>
     </div>
+    <script src="../../script/login.js"></script>
 </body>
 
 </html>
