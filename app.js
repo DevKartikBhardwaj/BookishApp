@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 
 app.get("/sell", fetchuser, (req, res) => {
     console.log("inside");
-    res.send('Sell');
+    res.render('../views');
 })
 
 //Request 1:)POST request for submitting the product form

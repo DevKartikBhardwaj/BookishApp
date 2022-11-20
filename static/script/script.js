@@ -97,12 +97,21 @@ Array.from(dot).forEach((element) => {
 ///Js for sell
 
 
-const sellClicked = async () => {
+// const sellClicked = async () => {
+//     await fetch("/Sell", {
+//         headers: {
+//             "Content-Type": "application/json",
+//             "auth-token": localStorage.getItem('token')
+//         }
+//     })
+// }
+
+async function sellClicked() {
     await fetch("/Sell", {
         headers: {
             "Content-Type": "application/json",
-            "auth-token": localStorage.getItem('token')
-        }
-    })
+            'auth-token': localStorage.getItem('token')
+        },
+        redirect: 'follow'
+    }).catch((e) => { console.log(e) })
 }
-
