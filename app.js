@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 
 app.get("/sell", fetchuser, (req, res) => {
     console.log("inside");
-    res.status(200).render('Sell');
+    res.send('Sell');
 })
 
 //Request 1:)POST request for submitting the product form

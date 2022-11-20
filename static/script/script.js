@@ -48,6 +48,7 @@ setInterval(() => {
 }, 8000)
 
 
+
 function setBg1() {
     let dot1 = document.getElementById("dot-1");
     dot1.style.backgroundColor = "green";
@@ -94,11 +95,14 @@ Array.from(dot).forEach((element) => {
 
 
 ///Js for sell
+
+
 const sellClicked = async () => {
-    await fetch('/Sell', {
+    await fetch("/Sell", {
         headers: {
-            'content-type': 'Content-type',
-            "auth-token": localStorage.getItem("token")
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem('token')
         }
-    }).then((response) => { console.log(response); }).catch(err => console.log(err))
+    })
 }
+
