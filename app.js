@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require("express");
 const multer = require('multer')
 const bcrypt = require('bcrypt');
+const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 // const upload = multer({ dest: 'uploads/' })
@@ -14,11 +15,10 @@ const JWT_SECRET = process.env.JWT_SECRET_STRING;
 
 const port = process.env.PORT;
 
-
+app.use(cookieParser());
 app.use(express.static('static'))
 app.use(express.urlencoded({ extended: "true" }));
 app.use(express.json());
-
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/static/Templates/views'));
 hbs.registerPartials(path.join(__dirname, '/static/Templates/partials'));
@@ -49,12 +49,12 @@ app.get("/", (req, res) => {
 })
 
 app.get("/sell", fetchuser, (req, res) => {
-    console.log("inside");
-    res.render('../views');
-})
+    res.status(200).render("Sell");
+});
+
 
 //Request 1:)POST request for submitting the product form
-app.post("/sell", fetchuser, (req, res) => {
+app.post("/sell", (req, res) => {
     upload(req, res, function (err) {
         if (err) {
             console.log(err);
@@ -118,15 +118,20 @@ app.post("/signup",
                     }
 
                     const authtoken = jwt.sign(data, JWT_SECRET);
-
+                    console.log(authtoken);
+                    res.cookie('jsonwebtok', encodeURIComponent(authtoken), {
+                        // httpOnly: true,
+                        // path: "/sell"
+                    });
                     newUser.save();
-                    res.json({ success: true, authtoken });
+                    // res.status(200).render('login');
+                    res.json({ success: true });
                 } else {
-                    res.json({ success: false, cPassword: false });
+                    res.status(404).json({ success: false, cPassword: false });
                 }
             }
             else {
-                res.json({ success: false, user: true });
+                res.status(404).json({ success: false, user: true });
             }
         } catch (error) {
             console.log(error.message);
@@ -161,7 +166,11 @@ app.post('/login', [body('userEmail').isEmail(), body('userPassword').isLength({
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
-        res.json({ success: true, authtoken })
+        res.cookie('jsonwebtok', encodeURIComponent(authtoken), {
+            expires: new Date(Date.now() + 900000)//httpOnly: true
+        });
+
+        res.json({ success: true })
     } catch (error) {
 
     }
@@ -197,13 +206,17 @@ app.get('/dashboard/listedbooks', (req, res) => {
 
 
 //request for cart
-app.get("/cart", (req, res) => {
+app.get("/cart", fetchuser, (req, res) => {
     try {
         res.status(200).render('Cart');
     } catch (error) {
         res.status(404).send(error.message);
     }
 })
+
+
+
+
 
 
 app.listen(port, () => {

@@ -31,7 +31,7 @@ signupForm.addEventListener('submit', async (e) => {
         }).then((response) => { return response.json() }).then((data) => {
             if (data.success) {
                 location.href = "http://localhost:3000/login";
-                localStorage.setItem('token', data.authtoken);
+                // localStorage.setItem('token', data.authtoken);
             }
             if (!data.success && !data.cPassword) {
                 modal("Please! Confirm your password", "red");
