@@ -29,7 +29,6 @@ loginForm.addEventListener('submit', async (e) => {
         }).then((response) => { return response.json() }).then((data) => {
             if (data.success) {
                 location.href = "http://localhost:3000/";
-                localStorage.setItem('token', data.authtoken);
             }
             if (!data.success) {
                 modal("Invalid Credentials", "blue");
@@ -39,3 +38,4 @@ loginForm.addEventListener('submit', async (e) => {
         console.log(error);
     }
 })
+
