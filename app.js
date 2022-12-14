@@ -72,13 +72,13 @@ app.post("/sell", fetchuser, (req, res) => {
             })
             newProduct.save((err) => {
                 if (err) {
-                    res.status(404).json({ error: err });
+                    res.status(404).json({ success: false, error: err.message });
                 }
             })
             res.json({ success: true });
         })
     } catch (err) {
-        res.status(404).json({ error: err });
+        res.status(404).json({ success: false, error: err.message });
     }
 })
 

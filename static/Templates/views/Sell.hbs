@@ -30,21 +30,24 @@
             <h2 class="primary-heading" style="text-align: center; color: white;"><span class="primary-heading"
                     style="color: violet;">S</span>ell your
                 Product</h2>
-            <form action="/sell" method="post" id="sellers-form" enctype="multipart/form-data" onsubmit="myFunc()">
+            <form {{!-- action="/sell" method="post" id="sellers-form" enctype="multipart/form-data" onsubmit="myFunc()"
+                --}}>
                 <div class="form-input">
                     <label for="productTitle" class="sub-heading">Title</label>
-                    <input id="productTitle" name="productTitle" placeholder="Enter Product Title" type="text">
+                    <input class="form-input-data" id="productTitle" name="productTitle"
+                        placeholder="Enter Product Title" type="text">
                 </div>
 
                 <div class="form-input">
                     <label for="productMRP">M.R.P</label>
-                    <input id="productMRP" placeholder="Enter Product Price" name="productMRP" type="text">
+                    <input class="form-input-data" id="productMRP" placeholder="Enter Product Price" name="productMRP"
+                        type="text">
                 </div>
 
 
                 <div class="form-input">
                     <label for="productCategory">Category</label>
-                    <select id="productCategory" name="productCategory">
+                    <select class="form-input-data" id="productCategory" name="productCategory">
                         <option class="product-category-option" value="" selected>-- Select Category --</option>
                         <option class="product-category-option" value="Engineering">Engineering</option>
                         <option class="product-category-option" value="Medical">Medical</option>
@@ -57,7 +60,7 @@
 
                 <div class="form-input">
                     <label for="product-About">About this products</label>
-                    <textarea id="product-About" name="productDescription" cols="30"
+                    <textarea class="form-input-data" id="product-About" name="productDescription" cols="30"
                         rows="10">Enter Product Specs</textarea>
                 </div>
                 <div class="form-input" id="form-img-div">
@@ -73,6 +76,7 @@
     {{>Footer}}
 
     <script src="../../script/Sell.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>
