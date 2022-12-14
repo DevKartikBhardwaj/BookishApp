@@ -2,3 +2,5 @@ node_modules/
 static/images/Library - 1310.mp4
 .env.local
 upload/
+tmp/
+.env
