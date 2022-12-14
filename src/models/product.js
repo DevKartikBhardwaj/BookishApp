@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const productSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+        type: String
     },
     productTitle: {
         type: String,
@@ -22,14 +21,9 @@ const productSchema = new Schema({
         required: true
     },
     productImage: {
-        data: Buffer, //Buffer means data is in binary form
-        type: Object
-    },
-    date: {
-        type: Date,
-        default: Date.now
+        type: String
     }
-})
+}, { timestamps: true })
 
 const product = mongoose.model("product", productSchema);
 module.exports = product;
