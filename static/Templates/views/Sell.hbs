@@ -14,10 +14,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="../../style/loader.css">
     <link rel="stylesheet" href="../../style/style.css">
 </head>
 
 <body>
+    {{>Loader}}
     {{>partialNav}}
     <section id="sellers-form-area">
         <div id="video-wrap"></div>
@@ -28,7 +30,7 @@
             <h2 class="primary-heading" style="text-align: center; color: white;"><span class="primary-heading"
                     style="color: violet;">S</span>ell your
                 Product</h2>
-            <form action="#" id="sellers-form">
+            <form action="/sell" method="post" id="sellers-form" enctype="multipart/form-data" onsubmit="myFunc()">
                 <div class="form-input">
                     <label for="productTitle" class="sub-heading">Title</label>
                     <input id="productTitle" name="productTitle" placeholder="Enter Product Title" type="text">
@@ -65,11 +67,12 @@
                 <button type="submit" class="primary-btn" id="product-submit-btn">Sell-Product</button>
                 <button type="reset" class="primary-btn" id="product-reset-btn">Reset-Form</button>
             </form>
+
         </div>
     </section>
     {{>Footer}}
-    {{!--
-    <script src="../../script/script.js"></script> --}}
+
+    <script src="../../script/Sell.js"></script>
 </body>
 
 </html>

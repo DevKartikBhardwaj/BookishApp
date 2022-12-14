@@ -23,10 +23,10 @@ const fetchuser = async (req, res, next) => {
             const token = req.cookies.jsonwebtok;
             const data = jwt.verify(token, JWT_SECRET);
             const userVal = await user.findOne({ _id: data.user.id });
-
             if (!userVal) {
                 res.status(401).redirect('/login');
             } else {
+                req.body.user = data.user.id;
                 next();
             }
         } catch (error) {

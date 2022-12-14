@@ -1,19 +1,21 @@
 require('dotenv').config();
 const express = require("express");
-const multer = require('multer')
+const cloudinary = require("cloudinary").v2;
+const fileUpload = require("express-fileupload");
 const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
-// const upload = multer({ dest: 'uploads/' })
 const hbs = require("hbs");
 const path = require("path");
 const { body, validationResult } = require('express-validator');
 const app = express();
 const fetchuser = require("./middleware/fetchuser");
-const JWT_SECRET = process.env.JWT_SECRET_STRING;
-
 const port = process.env.PORT;
+const JWT_SECRET = process.env.JWT_SECRET_STRING;
+const CLDNRY_CLOUD_NAME = process.env.CLDNRY_CLOUD_NAME;
+const CLDNRY_API_KEY = process.env.CLDNRY_API_KEY;
+const CLDNRY_API_SECRET = process.env.CLDNRY_API_SECRET;
 
 app.use(cookieParser());
 app.use(express.static('static'))
@@ -24,24 +26,26 @@ app.set('views', path.join(__dirname, '/static/Templates/views'));
 hbs.registerPartials(path.join(__dirname, '/static/Templates/partials'));
 
 
+cloudinary.config({
+    cloud_name: CLDNRY_CLOUD_NAME,
+    api_key: CLDNRY_API_KEY,
+    api_secret: CLDNRY_API_SECRET
+});
 
 
 require("./src/db/conn")
+
+
+app.use(fileUpload({
+    useTempFiles: true
+}))
 
 //importing all the models
 const product = require("./src/models/product");
 const user = require("./src/models/User");
 const { response, json } = require('express');
 
-//configuring disk storage for multer
-const Storage = multer.diskStorage({
-    destination: 'upload',
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
 
-const upload = multer({ storage: Storage }).single('testImage');
 
 
 app.get("/", (req, res) => {
@@ -54,35 +58,38 @@ app.get("/sell", fetchuser, (req, res) => {
 
 
 //Request 1:)POST request for submitting the product form
-app.post("/sell", (req, res) => {
-    upload(req, res, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-
-            var newProduct = new product({
+app.post("/sell", fetchuser, (req, res) => {
+    try {
+        const file = req.files.productImage;//stores photo inside file
+        cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+            const newProduct = new product({
+                user: ` ObjectId(${req.body.user})`,
                 productTitle: req.body.productTitle,
                 productMRP: req.body.productMRP,
                 productCategory: req.body.productCategory,
                 productDescription: req.body.productDescription,
-                user: req.user.id,
-                productImage: {
-                    data: req.file.path,
-                    contentType: 'image/png'
-                }
-            });
-
+                productImage: result.secure_url
+            })
             newProduct.save((err) => {
                 if (err) {
-                    return console.error(err.msg);
+                    res.status(404).json({ error: err });
                 }
             })
-            res.json({ success: true, data: res.body });
-
-        }
-    })
-
+            res.json({ success: true });
+        })
+    } catch (err) {
+        res.status(404).json({ error: err });
+    }
 })
+
+
+//product listing status api setup
+
+app.get('/sell/productListingStatus', fetchuser, (req, res) => {
+    res.status(200).render("productListingStatus");
+})
+
+
 
 // Req:"Get" User : login
 app.get('/signup', (req, res) => {
@@ -113,18 +120,13 @@ app.post("/signup",
 
                     const data = {
                         user: {
-                            id: newUser.id
+                            id: newUser._id
                         }
                     }
 
                     const authtoken = jwt.sign(data, JWT_SECRET);
-                    console.log(authtoken);
-                    res.cookie('jsonwebtok', encodeURIComponent(authtoken), {
-                        // httpOnly: true,
-                        // path: "/sell"
-                    });
+                    res.cookie('jsonwebtok', encodeURIComponent(authtoken));
                     newUser.save();
-                    // res.status(200).render('login');
                     res.json({ success: true });
                 } else {
                     res.status(404).json({ success: false, cPassword: false });
@@ -213,9 +215,6 @@ app.get("/cart", fetchuser, (req, res) => {
         res.status(404).send(error.message);
     }
 })
-
-
-
 
 
 
