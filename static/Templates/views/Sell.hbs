@@ -30,8 +30,7 @@
             <h2 class="primary-heading" style="text-align: center; color: white;"><span class="primary-heading"
                     style="color: violet;">S</span>ell your
                 Product</h2>
-            <form {{!-- action="/sell" method="post" id="sellers-form" enctype="multipart/form-data" onsubmit="myFunc()"
-                --}}>
+            <form>
                 <div class="form-input">
                     <label for="productTitle" class="sub-heading">Title</label>
                     <input class="form-input-data" id="productTitle" name="productTitle"
@@ -60,8 +59,8 @@
 
                 <div class="form-input">
                     <label for="product-About">About this products</label>
-                    <textarea class="form-input-data" id="product-About" name="productDescription" cols="30"
-                        rows="10">Enter Product Specs</textarea>
+                    <textarea class="form-input-data" id="product-About" name="productDescription" cols="30" rows="10"
+                        placeholder="Enter Product Specs"></textarea>
                 </div>
                 <div class="form-input" id="form-img-div">
                     <input type="file" name="productImage" id="productImage" style="margin:auto;"

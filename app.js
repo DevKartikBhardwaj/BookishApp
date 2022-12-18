@@ -43,13 +43,25 @@ app.use(fileUpload({
 //importing all the models
 const product = require("./src/models/product");
 const user = require("./src/models/User");
+const cart = require("./src/models/cart");
 const { response, json } = require('express');
+const { isObjectIdOrHexString } = require('mongoose');
+const { findByIdAndUpdate } = require('./src/models/User');
+const { findByIdAndDelete } = require('./src/models/cart');
 
 
 
 
-app.get("/", (req, res) => {
-    res.status(200).render("Home");
+app.get("/", async (req, res) => {
+    let Engineering = await product.find({ productCategory: "Engineering" }, { productImage: 1 });
+    let Medical = await product.find({ productCategory: "Medical" }, { productImage: 1 });
+    let Law = await product.find({ productCategory: "Law" }, { productImage: 1 });
+    let Ncert = await product.find({ productCategory: "NCERT" }, { productImage: 1 });
+    let CExams = await product.find({ productCategory: "Competetive-Exams" }, { productImage: 1 });
+    let Others = await product.find({ productCategory: "Others" }, { productImage: 1 });
+
+    res.status(200).render("Home", { Engineering, Medical, Law, Ncert, CExams, Others });
+
 })
 
 app.get("/sell", fetchuser, (req, res) => {
@@ -82,19 +94,14 @@ app.post("/sell", fetchuser, (req, res) => {
     }
 })
 
-
-//product listing status api setup
-
-app.get('/sell/productListingStatus', fetchuser, (req, res) => {
-    res.status(200).render("productListingStatus");
-})
+    /
 
 
 
-// Req:"Get" User : login
-app.get('/signup', (req, res) => {
-    res.status(200).render("Signup");
-})
+    // Req:"Get" User : login
+    app.get('/signup', (req, res) => {
+        res.status(200).render("Signup");
+    })
 
 //Req2:) "POST"  Creating user :signup
 
@@ -207,15 +214,104 @@ app.get('/dashboard/listedbooks', (req, res) => {
 })
 
 
-//request for cart
-app.get("/cart", fetchuser, (req, res) => {
+//Single product page
+app.get("/product/:id", async (req, res) => {
     try {
-        res.status(200).render('Cart');
-    } catch (error) {
-        res.status(404).send(error.message);
+        let productId = req.params.id;
+        let result = await product.find({ _id: productId });
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(404).send("404 : something bad has happend");
     }
 })
 
+
+app.get("/products", async (req, res) => {
+    try {
+        let query = req.query.category;
+        if (query) {
+            let filteredProducts = await product.find({ productCategory: `${query}` });
+            res.status(200).render("productPage", { filteredProducts });
+        }
+        else {
+            let allProducts = await product.find({});
+            res.status(200).render("productPage", { allProducts });
+        }
+    } catch (err) {
+        res.status(404).send("404 : something bad has happend");
+    }
+})
+
+
+// ********************************************************************************************************************************
+// ****************************************CART API's******************************************************************************
+// ********************************************************************************************************************************
+
+//saving cart item in database
+app.get("/cart/:id", fetchuser, async (req, res) => {
+    try {
+        let cartExist = await cart.find({ userId: req.body.user, productId: req.params.id });
+
+        if (!cartExist[0]) {
+            let newCartItem = new cart({
+                userId: req.body.user,
+                productId: req.params.id
+            });
+
+            newCartItem.save().then(() => {
+                res.status(200).json({ success: true });
+
+            }).catch((err) => {
+                res.status(404).json({ error: err.message });
+            })
+        } else {
+            let currentCart = await cart.find({ userId: req.body.user, productId: req.params.id });
+            let currentCartId = (currentCart[0]._id).toString();
+            await cart.findByIdAndUpdate(currentCartId, { qty: currentCart[0].qty + 1 }, function (err, docs) {
+                if (err) {
+                    console.log(err.message);
+                }
+            }).clone();
+            res.status(200).send({ success: true });
+        }
+
+
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+})
+
+//deleting cartitem
+app.delete('/deleteCart/:id', async (req, res) => {
+    await cart.findByIdAndDelete(req.params.id, function (err, docs) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.status(200).json({ success: true });
+        }
+    }).clone()
+})
+
+//fetch all cart items
+
+app.get('/cart', fetchuser, async (req, res) => {
+    let cartItems = await cart.find({ userId: req.body.user });
+    let arr = [];
+
+    for (i = 0; i < cartItems.length; i++) {
+        const newObj = {};
+        let productObj = await product.find({ _id: cartItems[i].productId });
+        newObj.productTitle = productObj[0].productTitle;
+        newObj.productImage = productObj[0].productImage;
+        newObj.productMRP = Math.round((productObj[0].productMRP / 100) * 80) * cartItems[i].qty;
+        newObj.productCategory = productObj[0].productCategory;
+        newObj.qty = cartItems[i].qty;
+        newObj.cartItemId = (cartItems[i]._id).toString();
+        arr.push(newObj);
+    }
+    res.status(200).render('Cart', { arr });
+})
 
 
 app.listen(port, () => {

@@ -206,6 +206,13 @@ body {
     width: 200px;
     background-color: black;
     margin: 1.2em;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.cards:hover {
+    transform: scale(1.1);
 }
 
 .banner-2 {
@@ -320,6 +327,7 @@ footer {
     cursor: pointer;
     border: 2px solid violet;
     box-sizing: border-box;
+    cursor: text;
 }
 
 .product-category-option {
@@ -443,4 +451,117 @@ footer {
 
 #nav-user:hover .sub-menu {
     display: block;
+}
+
+/****************************************************************************************************************************************/
+/************************************************ SINGLE PRODUCT PAGE CSS ***************************************************************/
+/***************************************************************************************************************************************/
+
+#singleProductPage {
+    border: 3px solid red;
+    height: 49vh;
+    position: fixed;
+    z-index: 200;
+    left: 20rem;
+    background-color: whitesmoke;
+    display: none;
+    max-width: 60vw;
+    padding: 1.5rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+#leftpart {
+    flex-basis: 50%;
+    text-align: center;
+    align-self: center;
+}
+
+#rightpart {
+    line-height: 2rem;
+    padding: 1rem 2rem;
+    align-self: center;
+    font-family: 'Nunito', sans-serif;
+}
+
+#rightpart>i {
+    position: absolute;
+    top: 0.5rem;
+    right: 1.5rem;
+    font-size: 2.3em;
+    cursor: pointer;
+}
+
+#rightpart>h2,
+#rightpart>h4,
+#rightpart>p {
+    color: black;
+    font-size: 1.3rem;
+    margin-bottom: 1em;
+    font-family: 'Nunito', sans-serif;
+}
+
+#rightpart>h2>span,
+#rightpart>h4>span,
+#rightpart>p>span {
+    color: red;
+    font-size: 1.7rem;
+}
+
+#rightpart>h2 {
+    font-size: 2rem;
+}
+
+#buyBtn {
+    background-color: green;
+    width: 10em;
+}
+
+#addToCartBtn {
+    background-color: blue;
+    width: 10em;
+}
+
+/****************************************************************************************************************************************/
+/****************************************************** PRODUCT PAGE CSS ***************************************************************/
+/***************************************************************************************************************************************/
+
+
+#productCardSpace {
+    min-height: 100vh;
+    background-color: white;
+    width: 96vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card-btn {
+    width: 100%;
+    margin-bottom: 0.2em;
+}
+
+.card-content>h3,
+.card-content>p {
+    font-size: 20px;
+    margin-bottom: 0.6em;
+}
+
+.card-content>p>span {
+    font-size: 1em;
+}
+
+.card-btn {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
+
+.actualPrice {
+    color: red;
+}
+
+.listed-book-card {
+    margin: 2em 0;
+    max-height: 44em;
 }

@@ -18,7 +18,9 @@
 </head>
 
 <body>
+
     {{>Navbar}}
+    {{>singleProductPage}}
     <section class="banners-area">
         <div class="banner-area">
             <img src="../../images/Banner1.png" class="banner-img" alt="">
@@ -36,20 +38,23 @@
 
 
     <section id="main-section">
-        {{>ProductRow Heading='Bookish Personal Recommendation - Featured Books '}}
-        {{>ProductRow Heading='Discover with New Arrivals'}}
-        {{>ProductRow Heading='Competetive Exams (JEE Mains/Advanced | NEET | CUET | CAT | NIMCET | UPSC)'}}
+        {{>ProductRow Heading='Engineering Books' category="Engineering" EnginneringBooks=Engineering }}
+        {{>ProductRow Heading='Medical' category="Medical" MedicalBooks=Medical}}
+        {{>ProductRow Heading='Law' category="Law" LawBooks=Law}}
         <div class="banner-2">
-            <img style="width: 100%;" src="../../images/Explore.png" alt="">
+            <img style="width: 100%;" src="../../images/Explore.png">
         </div>
-        {{>ProductRow Heading='Engineering Books'}}
-        {{>ProductRow Heading='Boards (NCERT | Solved Papers | Question Banks ) '}}
-        {{>ProductRow Heading='Others (Medical | Law | etc)'}}
+        {{>ProductRow Heading='Boards (NCERT | Solved Papers | Question Banks ) ' category="NCERT" NcertBooks=Ncert}}
+        {{>ProductRow Heading='Competetive Exams (JEE Mains/Advanced | NEET | CUET | CAT | NIMCET | UPSC)'
+        category="Competetive-Exams"
+        CExamBooks=CExams}}
+        {{>ProductRow Heading='Others - Featured Books' category="Others" OtherBooks=Others}}
     </section>
 
     {{>Footer}}
     <script src="https://kit.fontawesome.com/cbd1f95b02.js" crossorigin="anonymous"></script>
     <script src="../../script/script.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

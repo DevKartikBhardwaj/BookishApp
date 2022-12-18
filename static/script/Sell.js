@@ -1,10 +1,10 @@
 const Base_URL = "http://localhost:3000";
 const sellerForm = document.querySelector("#sellers-form");
 const submitBtn = document.querySelector("#product-submit-btn");
+const array = document.getElementsByClassName("form-input-data");
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    loader();
-
+    array[0].value && array[1].value && array[2].value && array[3].value ? loader() : swal("Sorry!", "Unable to list your product! please fill all inputs", "error");
 })
 
 
@@ -12,7 +12,8 @@ submitBtn.addEventListener("click", (e) => {
 const loader = () => {
     const loader = document.getElementById("loader");
     loader.style.display = "block";
-    fetchedFormData();
+    fetchedFormData()
+
 }
 
 
@@ -20,7 +21,7 @@ const loader = () => {
 const fetchedFormData = () => {
     const formData = new FormData();
 
-    let array = document.getElementsByClassName("form-input-data");
+    // let array = document.getElementsByClassName("form-input-data");
     const fileField = document.querySelector('input[type="file"]');
     formData.append('productTitle', array[0].value);
     formData.append('productMRP', array[1].value);
@@ -56,5 +57,6 @@ const fetchedFormData = () => {
         console.log(err);
     })
 }
+
 
 

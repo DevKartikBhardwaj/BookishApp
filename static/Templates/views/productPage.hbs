@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookish - Products</title>
+    <link rel="shortcut icon" href="./images/Untitled design (4).png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style/dashboard.css">
+    <link rel="stylesheet" href="../../style/style.css">
+</head>
+
+<body>
+
+    {{>Navbar}}
+    {{>singleProductPage}}
+    <div style=" display:flex;  justify-content:center;">
+        <section id="productCardSpace">
+            {{#each allProducts}}
+            <div class="listed-book-card">
+                <div class="img-frame">
+                    <img src="{{this.productImage}}" alt="product img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">{{this.productTitle}}</h3>
+                    <p class="category">Category : <span>{{this.productCategory}}</span> </p>
+                    <p class="actualPrice">Actual Price : Rs.{{this.productMRP}}</p>
+                    <p class="price">Discounted Price : Rs. {{this.productMRP}} </p>
+                    <div class="btn-wrapper">
+
+                        <button class="card-btn" style="background-color: orange;  "
+                            onclick="func('{{this._id}}')">View</button>
+                        <button class="card-btn" style="background-color: blue;">Buy</button>
+                        <button class="card-btn" style="background-color: red; "
+                            onclick="cartClickHandler('{{this._id}}')">AddTo Cart</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            {{#each filteredProducts}}
+            <div class="listed-book-card">
+                <div class="img-frame">
+                    <img src="{{this.productImage}}" alt="product img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">{{this.productTitle}}</h3>
+                    <p class="category">Category : <span>{{this.productCategory}}</span> </p>
+                    <p class="actualPrice">Actual Price : Rs.{{this.productMRP}}</p>
+                    <p class="price">Discounted Price : Rs. {{this.productMRP}} </p>
+                    <div class="btn-wrapper">
+
+                        <button class="card-btn" style="background-color: orange;  ">View</button>
+                        <button class="card-btn" style="background-color: blue;">Buy</button>
+                        <button class="card-btn" style="background-color: red; "
+                            onclick="cartClickHandler('{{this._id}}')">AddTo Cart</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+
+        </section>
+    </div>
+    {{>Footer}}
+
+    <script src="https://kit.fontawesome.com/cbd1f95b02.js" crossorigin="anonymous"></script>
+    <script src="../../script/product.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

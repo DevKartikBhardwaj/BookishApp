@@ -12,19 +12,13 @@
 <body>
     <div class="main-section">
         <h2>Cart Items</h2>
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
-        {{>CartCard}}
+        {{#each arr}}
+        {{>CartCard productTitle=this.productTitle productMRP=this.productMRP productImage=this.productImage
+        productQuantity=this.qty cartItemId=this.cartItemId}}
+        {{/each}}
     </div>
+    <script src="../../script/cart.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
