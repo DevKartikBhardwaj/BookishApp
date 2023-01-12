@@ -16,19 +16,33 @@
         <div class="right-section-listing">
             <h1>Listed Books</h1>
             <div class="listed-books-card-wrapper">
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
-                {{>ListedBookcard}}
+                {{#each listedProducts}}
+                <div class="listed-book-card">
+                    <div class="img-frame">
+                        <img src={{this.productImage}} alt="product img">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">{{this.productTitle}}</h3>
+                        <p class="category">Category : <span class="category">{{this.productCategory}}</span> </p>
+                        <p class="price">Price : &#8377; <span class="price">{{this.productMRP}}</span></p>
+                        <div class="btn-wrapper">
+                            <button class="card-btn"
+                                style="background-color: blue;  border-top-left-radius: 2em;border-bottom-left-radius: 2em;">Edit
+                                <i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="card-btn"
+                                style="background-color: red; border-top-right-radius: 2em;border-bottom-right-radius: 2em;"
+                                onclick="deleteButtonClick('{{{this._id}}}')">Delete
+                                <i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
             </div>
         </div>
     </div>
+    <script src="../../script//dashboard.js"></script>
     <script src="https://kit.fontawesome.com/cbd1f95b02.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

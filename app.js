@@ -50,15 +50,13 @@ const { findByIdAndUpdate } = require('./src/models/User');
 const { findByIdAndDelete } = require('./src/models/cart');
 
 
-
-
 app.get("/", async (req, res) => {
-    let Engineering = await product.find({ productCategory: "Engineering" }, { productImage: 1 });
-    let Medical = await product.find({ productCategory: "Medical" }, { productImage: 1 });
-    let Law = await product.find({ productCategory: "Law" }, { productImage: 1 });
-    let Ncert = await product.find({ productCategory: "NCERT" }, { productImage: 1 });
-    let CExams = await product.find({ productCategory: "Competetive-Exams" }, { productImage: 1 });
-    let Others = await product.find({ productCategory: "Others" }, { productImage: 1 });
+    let Engineering = await product.find({ productCategory: "Engineering" }, { productImage: 1 }).limit(7);
+    let Medical = await product.find({ productCategory: "Medical" }, { productImage: 1 }).limit(7);
+    let Law = await product.find({ productCategory: "Law" }, { productImage: 1 }).limit(7);
+    let Ncert = await product.find({ productCategory: "NCERT" }, { productImage: 1 }).limit(7);
+    let CExams = await product.find({ productCategory: "Competetive-Exams" }, { productImage: 1 }).limit(7);
+    let Others = await product.find({ productCategory: "Others" }, { productImage: 1 }).limit(7);
 
     res.status(200).render("Home", { Engineering, Medical, Law, Ncert, CExams, Others });
 
@@ -94,14 +92,14 @@ app.post("/sell", fetchuser, (req, res) => {
     }
 })
 
-    /
 
 
 
-    // Req:"Get" User : login
-    app.get('/signup', (req, res) => {
-        res.status(200).render("Signup");
-    })
+
+// Req:"Get" User : login
+app.get('/signup', (req, res) => {
+    res.status(200).render("Signup");
+})
 
 //Req2:) "POST"  Creating user :signup
 
@@ -176,7 +174,7 @@ app.post('/login', [body('userEmail').isEmail(), body('userPassword').isLength({
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
         res.cookie('jsonwebtok', encodeURIComponent(authtoken), {
-            expires: new Date(Date.now() + 900000)//httpOnly: true
+            expires: new Date(Date.now() + 900000000)//httpOnly: true
         });
 
         res.json({ success: true })
@@ -198,16 +196,20 @@ app.get('/fetch', fetchuser, async (req, res) => {
 
 
 //dashboard related requests
-app.get('/dashboard/userdetails', (req, res) => {
+app.get('/dashboard/userdetails', fetchuser, async (req, res) => {
     try {
-        res.status(200).render("Userdetails");
+        const userId = req.body.user;
+        const userDetails = await user.find({ _id: userId }, { userName: 1, userEmail: 1 });
+        res.status(200).render("Userdetails", { userDetails });
     } catch (error) {
         res.status(404).send(error.message);
     }
 })
-app.get('/dashboard/listedbooks', (req, res) => {
+app.get('/dashboard/listedbooks', fetchuser, async (req, res) => {
     try {
-        res.status(200).render("listedbooks");
+        const userId = req.body.user;
+        const listedProducts = await product.find({ user: ` ObjectId(${userId})` }, { productTitle: 1, productCategory: 1, productMRP: 1, productImage: 1 });
+        res.status(200).render("listedbooks", { listedProducts });
     } catch (error) {
         res.status(404).send(error.message);
     }
@@ -221,7 +223,8 @@ app.get("/product/:id", async (req, res) => {
         let result = await product.find({ _id: productId });
         res.status(200).json(result);
     } catch (err) {
-        res.status(404).send("404 : something bad has happend");
+        console.log(err);
+        res.status(404).send("404 : something went wrong");
     }
 })
 
@@ -229,12 +232,24 @@ app.get("/product/:id", async (req, res) => {
 app.get("/products", async (req, res) => {
     try {
         let query = req.query.category;
+        let productName = req.query.title;
         if (query) {
             let filteredProducts = await product.find({ productCategory: `${query}` });
             res.status(200).render("productPage", { filteredProducts });
+        } else if (productName) {
+            let filteredProducts = await product.find({ $text: { $search: productName } });
+
+            if (filteredProducts.length == 0) {
+                let notFound = [{ "title": "Not Found" }];
+                res.status(200).render("productPage", { notFound });
+            } else {
+
+                res.status(200).render("productPage", { filteredProducts });
+            }
         }
         else {
             let allProducts = await product.find({});
+
             res.status(200).render("productPage", { allProducts });
         }
     } catch (err) {
@@ -312,6 +327,50 @@ app.get('/cart', fetchuser, async (req, res) => {
     }
     res.status(200).render('Cart', { arr });
 })
+
+
+
+
+// ********************************************************************************************************************************
+// ****************************************User Dashboard API's******************************************************************************
+// ********************************************************************************************************************************
+
+//api for productDeletion
+app.delete('/dashboard/listedbooks/delete/:id', fetchuser, async (req, res) => {
+    try {
+        await product.findByIdAndDelete(req.params.id, function (err, docs) {
+            if (err) {
+                res.status(404).send("Something Went Wrong!!");
+            } else {
+                res.status(200).json({ done: true });
+            }
+        }).clone();
+    } catch (error) {
+        res.status(404).send("Something Went Wrong!!");
+    }
+
+})
+
+
+
+// *******************************************************************************************************************************
+// *******************************************************************************************************************************
+// *******************************************************************************************************************************
+// **************************************START EVERYTHIMG FROM HERE***************************************************************
+// **************************************START EVERYTHIMG FROM HERE***************************************************************
+// *******************************************************************************************************************************
+// *******************************************************************************************************************************
+// *******************************************************************************************************************************
+
+
+// app.put('/dashboard/listedbooks/update/:id', fetchuser, async (req, res) => {
+//     await product.findByIdAndUpdate(req.params.id, {
+//         productTitle: req.body.pt,
+//         productMRP: req.body.mrp,
+//         productCategory: req.body.cgry,
+//         productDescription: req.body.pd
+//     })
+// })
 
 
 app.listen(port, () => {

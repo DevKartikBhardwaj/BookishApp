@@ -16,11 +16,12 @@
         <div class="right-section-details">
             <h1>User Details</h1>
             <ul>
+                {{#each userDetails}}
                 <li class="user-detail-items">Username <span class="colon-space">:</span> <span id="userName"
-                        class="user-detail-value">Kartik
-                        Bhardwaj</span></li>
+                        class="user-detail-value">{{{this.userName}}}</span></li>
                 <li class="user-detail-items">UserEmail <span class="colon-space">:</span> <span id="userEmail"
-                        class="user-detail-value">Kb@gmail.com</span></li>
+                        class="user-detail-value">{{{this.userEmail}}}</span></li>
+                {{/each}}
             </ul>
 
         </div>

@@ -495,7 +495,7 @@ footer {
 #rightpart>h4,
 #rightpart>p {
     color: black;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-bottom: 1em;
     font-family: 'Nunito', sans-serif;
 }
@@ -505,6 +505,7 @@ footer {
 #rightpart>p>span {
     color: red;
     font-size: 1.7rem;
+    font-weight: bold;
 }
 
 #rightpart>h2 {
@@ -564,4 +565,17 @@ footer {
 .listed-book-card {
     margin: 2em 0;
     max-height: 44em;
+}
+
+#notFound {
+    font-size: 801%;
+    margin: auto;
+    color: #eaeded;
+    text-shadow: 2px 3px 3px #00000038;
+}
+
+/********SWAL POPUP**************/
+.swal2-container.swal2-center>.swal2-popup {
+    font-size: 1.2rem;
+    align-self: flex-start;
 }

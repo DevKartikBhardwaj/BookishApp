@@ -43,3 +43,12 @@ const cartClickHandler = (arg) => {
         console.log(err);
     })
 }
+
+//search button click handler
+
+let searchBtn = document.getElementById("search-btn");
+searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let s = document.getElementById("search-box");
+    location.href = `${BaseUrl}/products?title=${s.value}`;
+})

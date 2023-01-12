@@ -153,6 +153,12 @@ const func = async (arg) => {
         <button id="buyBtn" class="primary-btn">Buy</button>
         <button id="addToCartBtn" class="primary-btn" onclick="cartClickHandler('${obj._id}')" >Add To cart</button>
     </div>`;
+    }).catch(() => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong'
+        })
     })
 
 
@@ -171,13 +177,26 @@ const cartClickHandler = (arg) => {
     }).then((data) => {
         if (data.success) {
             Swal.fire(
-                'Good job!',
+                'Successs!',
                 'Product added to the cart!',
-                'success'
+                'success',
             )
         }
     }).catch((err) => {
-        console.log(err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Unable to add to the cart!'
+        })
     })
 
 }
+
+//search button click handler
+
+let searchBtn = document.getElementById("search-btn");
+searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let s = document.getElementById("search-box");
+    location.href = `${BaseUrl}/products?title=${s.value}`;
+})
