@@ -13,7 +13,6 @@ const fetchuser = async (req, res, next) => {
     // Get the user from the jwt token and add id to req object
     // const token = req.header('auth-token');
     const token = req.cookies.jsonwebtok;
-
     if (!token) {
         res.status(401).redirect('/login');
     }

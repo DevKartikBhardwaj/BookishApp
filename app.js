@@ -1,3 +1,6 @@
+// ********************MISTAKES THAT I HAVE DONE DURING DEVELOPMENT
+//*********************((1.))I used ` objectId(<key>)` instead of <key> everywhere in the repository
+
 require('dotenv').config();
 const express = require("express");
 const cloudinary = require("cloudinary").v2;
@@ -356,21 +359,32 @@ app.delete('/dashboard/listedbooks/delete/:id', fetchuser, async (req, res) => {
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
-// **************************************START EVERYTHIMG FROM HERE***************************************************************
-// **************************************START EVERYTHIMG FROM HERE***************************************************************
-// *******************************************************************************************************************************
+// **************************************Update Listed Books**********************************************************************
 // *******************************************************************************************************************************
 // *******************************************************************************************************************************
 
+app.put('/dashboard/listedbooks/update/:id', fetchuser, async (req, res) => {
 
-// app.put('/dashboard/listedbooks/update/:id', fetchuser, async (req, res) => {
-//     await product.findByIdAndUpdate(req.params.id, {
-//         productTitle: req.body.pt,
-//         productMRP: req.body.mrp,
-//         productCategory: req.body.cgry,
-//         productDescription: req.body.pd
-//     })
-// })
+    const productDetails = await product.findById(req.params.id);
+
+    if (productDetails.user != ` ObjectId(${req.body.user})`) {
+        return res.status(401).send("Not Authorized");
+    }
+
+
+    const newObj = {};
+    const { productTitle, productMRP, productCategory, productDescription } = req.body;
+
+
+    if (productTitle) { newObj.productTitle = productTitle }
+    if (productMRP) { newObj.productMRP = productMRP }
+    if (productCategory) { newObj.productCategory = productCategory }
+    if (productDescription) { newObj.productDescription = productDescription }
+
+
+    await product.findByIdAndUpdate(req.params.id, { $set: newObj }, { new: true });
+    res.status(200).json({ success: "true" });
+})
 
 
 app.listen(port, () => {

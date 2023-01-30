@@ -165,3 +165,49 @@ body {
     color: white;
     cursor: pointer;
 }
+
+
+/* related to update modal window */
+#updateModal {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    right: 20%;
+    top: 1%;
+    width: 50%;
+    z-index: 100;
+    background-color: black;
+    color: white;
+    /* animation: upsideDown 1.5s ease-in 0s 1; */
+    visibility: hidden;
+}
+
+@keyframes upsideDown {
+    From {
+        top: -100%;
+    }
+
+    To {
+        top: 1%;
+    }
+}
+
+#updateModal>h2 {
+    margin: 0.8em;
+}
+
+#updateForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#updateForm>input,
+#updateForm>textarea,
+#updateForm>button {
+    margin: 0.6em;
+    padding: 0.6em;
+    color: black;
+    outline: none;
+}

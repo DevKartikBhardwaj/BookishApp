@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    {{>updateModal}}
     <div id="main">
         {{>Dash}}
         <div class="right-section-listing">
@@ -27,7 +28,8 @@
                         <p class="price">Price : &#8377; <span class="price">{{this.productMRP}}</span></p>
                         <div class="btn-wrapper">
                             <button class="card-btn"
-                                style="background-color: blue;  border-top-left-radius: 2em;border-bottom-left-radius: 2em;">Edit
+                                style="background-color: blue;  border-top-left-radius: 2em;border-bottom-left-radius: 2em;"
+                                onclick="editButtonClick('{{{this._id}}}')">Edit
                                 <i class="fa-solid fa-pen-to-square"></i></button>
                             <button class="card-btn"
                                 style="background-color: red; border-top-right-radius: 2em;border-bottom-right-radius: 2em;"
