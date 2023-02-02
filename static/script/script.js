@@ -103,7 +103,7 @@ Logout</a>
 </li>
 
 <li><a href="/dashboard/userdetails" class="sub-menu-item" id="sub-menu-item3"><i
-class="fa-solid fa-user list-icon"></i></i>Dashboard</a>
+class="fa-solid fa-user list-icon"></i>Dashboard</a>
 </li>`;
 }
 else {
@@ -115,7 +115,7 @@ login</a>
     class="fa-solid fa-user-plus list-icon"
     style="margin-right: 0.2em;"></i>Signup</a></li>
 <li><a href="/dashboard/userdetails" class="sub-menu-item" id="sub-menu-item3"><i
-    class="fa-solid fa-user list-icon"></i></i>Dashboard</a>
+    class="fa-solid fa-user list-icon"></i>Dashboard</a>
 </li>`;
 }
 

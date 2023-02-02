@@ -89,3 +89,41 @@ body {
     background-color: rgba(255, 0, 0, 0.864);
 
 }
+
+/* cart summary */
+#cartSummary {
+    padding: 1rem 0;
+}
+
+#cartSummary>h4,
+h6 {
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+}
+
+#cartSummary>h4 {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    font-size: 1.5rem;
+}
+
+#cartSummary>h6 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+#cartSummary>div {
+    text-align: end;
+}
+
+#cartSummary>div>input[type="button"] {
+    background-color: black;
+    color: violet;
+    border: none;
+    font-weight: bold;
+    padding: 0.4em;
+    border-radius: 7px;
+    cursor: pointer;
+}

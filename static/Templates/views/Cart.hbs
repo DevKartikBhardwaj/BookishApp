@@ -16,9 +16,21 @@
         {{>CartCard productTitle=this.productTitle productMRP=this.productMRP productImage=this.productImage
         productQuantity=this.qty cartItemId=this.cartItemId}}
         {{/each}}
+        <hr>
+        <div id="cartSummary">
+            <h4>Cart Summary</h4>
+            {{#each arr2}}
+            <h6><span>Products Cost : </span><span>{{this.totalPrice}}</span></h6>
+            <h6>Shipping Charges : <span>{{this.shippingCharge}}</span></h6>
+            <h6>Total : <span>{{this.gross}}</span></h6>
+            {{/each}}
+            <div>
+                <input type="button" value="Checkout Now">
+            </div>
+        </div>
     </div>
-    <script src="../../script/cart.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+<script src="../../script/cart.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>

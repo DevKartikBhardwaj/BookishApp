@@ -316,19 +316,23 @@ app.delete('/deleteCart/:id', async (req, res) => {
 app.get('/cart', fetchuser, async (req, res) => {
     let cartItems = await cart.find({ userId: req.body.user });
     let arr = [];
-
+    let totalPrice = 0;
     for (i = 0; i < cartItems.length; i++) {
         const newObj = {};
         let productObj = await product.find({ _id: cartItems[i].productId });
         newObj.productTitle = productObj[0].productTitle;
         newObj.productImage = productObj[0].productImage;
         newObj.productMRP = Math.round((productObj[0].productMRP / 100) * 80) * cartItems[i].qty;
+        totalPrice += Math.round((productObj[0].productMRP / 100) * 80) * cartItems[i].qty;
         newObj.productCategory = productObj[0].productCategory;
         newObj.qty = cartItems[i].qty;
         newObj.cartItemId = (cartItems[i]._id).toString();
         arr.push(newObj);
     }
-    res.status(200).render('Cart', { arr });
+    let shippingCharge = Math.round((totalPrice * 2) / 100);
+    let gross = totalPrice + shippingCharge;
+    let arr2 = [{ totalPrice, shippingCharge, gross }];
+    res.status(200).render('Cart', { arr, arr2 });
 })
 
 

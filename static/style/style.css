@@ -415,6 +415,16 @@ footer {
     padding-top: 0.5em;
 }
 
+#scrollListPack>li {
+
+    transition: all 0.2s ease-in-out;
+}
+
+#scrollListPack>li:hover {
+
+    background-color: violet;
+}
+
 .list-icon {
     font-size: 1.2em;
     margin: 0 0.5em;
@@ -428,11 +438,6 @@ footer {
     box-sizing: border-box;
     font-size: 1.6em;
     font-weight: bold;
-    transition: all 0.2s ease-in-out;
-}
-
-.sub-menu-item:hover {
-    background-color: violet;
 }
 
 
