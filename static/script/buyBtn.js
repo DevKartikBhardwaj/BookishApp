@@ -1,7 +1,6 @@
 //BuyButton Handler
 
 const buyBtnHandler = async (arg) => {
-    console.log("clicked");
     fetch(`${BaseUrl}/product/${arg}`).then((response) => {
         return response.json();
     }).then((Data) => {

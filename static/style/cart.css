@@ -29,7 +29,7 @@ body {
 .cart-item-card {
     display: flex;
     /* border: 1px solid black; */
-    height: 23vh;
+    height: 10em;
 }
 
 .img-frame {
@@ -126,4 +126,36 @@ h6 {
     padding: 0.4em;
     border-radius: 7px;
     cursor: pointer;
+}
+
+
+/* queries for responsiveness */
+
+@media only screen and (max-width:1118px) {
+    .card-btn {
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width:700px) {
+    .card-btn {
+        width: 48%;
+    }
+
+    .card-content {
+        padding: 0.5em 0em 0em 1em;
+    }
+
+    .main-section {
+        padding: 0 0.5em;
+        margin: 2.7em 1em;
+    }
+
+    .cart-item-card {
+        height: 13em;
+    }
+
+    .img-frame {
+        width: 36%;
+    }
 }

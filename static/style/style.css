@@ -103,7 +103,7 @@ body {
 }
 
 #logo-cont {
-    width: 20%;
+    width: 36%;
     /* border: 1px solid blue; */
     display: flex;
     justify-content: space-evenly;
@@ -341,7 +341,7 @@ footer {
 #product-submit-btn {
     background-color: rgb(0, 163, 0);
     cursor: pointer;
-    width: 49.8%;
+    width: 48.8%;
 }
 
 #product-reset-btn {
@@ -352,7 +352,7 @@ footer {
 
 #form-img-div {
     border: 1px solid rgb(255, 255, 255);
-    padding: 4em;
+    padding: 4em 0;
 }
 
 /* utility classes */
@@ -569,6 +569,7 @@ footer {
 
 .listed-book-card {
     margin: 2em 0;
+    width: 30em;
     max-height: 44em;
 }
 
@@ -589,3 +590,117 @@ footer {
 
 
 /* **************************************STYLE FOR RESPONSIVENESS */
+
+@media only screen and (max-width:1354px) {
+    .card-wrapper {
+        overflow: auto;
+    }
+}
+
+@media only screen and (max-width:1087px) {
+
+    .inside-right,
+    .leftNav,
+    #sub-nav {
+        display: none;
+    }
+
+    #singleProductPage {
+        left: 0;
+        max-width: none;
+    }
+
+    .cards {
+        height: 15em;
+    }
+
+    .cards>img {
+        height: 100%;
+    }
+
+    .inside-left>img {
+        margin-left: 4em;
+    }
+
+    #leftpart>img {
+        height: 29.5em;
+    }
+
+    /* styling queries for sell page */
+    .form-wrap {
+        width: 80%;
+    }
+
+    .rightNav {
+        width: 92%;
+    }
+
+    /* /inventory section of website */
+    .listed-book-card {
+        max-height: none;
+    }
+}
+
+@media only screen and (max-width:700px) {
+    .banners-area {
+        height: 22rem;
+    }
+
+    .banner-area {
+        height: 90%;
+    }
+
+    .banner-navigation {
+        display: none;
+    }
+
+    .banner-2 {
+        height: 12rem;
+    }
+
+    .banner-2>img {
+        height: 95%;
+    }
+
+    .primary-heading {
+        font-size: 1.5rem;
+    }
+
+    .footer-components-headings {
+        margin-bottom: 1.5em;
+    }
+
+    #singleProductPage {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        display: none;
+    }
+
+    #leftpart>img {
+        height: 18em;
+    }
+
+    .sub-sections {
+        padding: 0;
+    }
+
+    .cards {
+        height: 10em;
+    }
+
+    .cards>img {
+        height: 100%;
+    }
+
+    .form-wrap {
+        width: 95%;
+    }
+
+
+
+    /* user dashboard realated queries */
+    .listed-book-card {
+        padding: 0;
+    }
+}

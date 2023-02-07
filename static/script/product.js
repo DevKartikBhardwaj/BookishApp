@@ -54,3 +54,4 @@ searchBtn.addEventListener("click", (e) => {
     let s = document.getElementById("search-box");
     location.href = `${BaseUrl}/products?title=${s.value}`;
 })
+

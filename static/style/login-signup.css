@@ -109,6 +109,7 @@ body {
 @media (max-width:610px) {
     .main-Block {
         width: 80%;
+        margin: auto;
     }
 }
 

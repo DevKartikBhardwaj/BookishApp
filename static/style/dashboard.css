@@ -159,7 +159,7 @@ body {
 }
 
 .card-btn {
-    width: 49%;
+    width: 48%;
     padding: 0.4em;
     border: none;
     color: white;
@@ -210,4 +210,17 @@ body {
     padding: 0.6em;
     color: black;
     outline: none;
+}
+
+
+@media only screen and (max-width:700px) {
+    .left-section {
+        border-radius: 0;
+    }
+
+    .left-section>img {
+        display: none;
+    }
+
+
 }
