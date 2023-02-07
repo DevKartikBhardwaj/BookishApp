@@ -16,8 +16,8 @@ const func = async (arg) => {
         <p id="productDescription"><span>About Product : </span>${obj.productDescription} </p>
         <h4 id="actualPrice"><span>Actual Price : </span>Rs. ${obj.productMRP}</h4>
         <h4 id="discountedPrice"><span>Discounted Price : </span>Rs. ${discountedPrice}</h4>
-        <button id="buyBtn" class="primary-btn">Buy</button>
-        <button id="addToCartBtn" class="primary-btn" >Add To cart</button>
+        <button id="buyBtn" class="primary-btn" onclick=buyBtnHandler('${obj._id}')>Buy</button>
+        <button id="addToCartBtn" class="primary-btn" onclick=cartClickHandler('${obj._id}')>Add To cart</button>
     </div>`;
     })
 }
@@ -43,6 +43,8 @@ const cartClickHandler = (arg) => {
         console.log(err);
     })
 }
+
+
 
 //search button click handler
 

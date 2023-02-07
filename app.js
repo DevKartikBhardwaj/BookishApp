@@ -20,6 +20,8 @@ const CLDNRY_CLOUD_NAME = process.env.CLDNRY_CLOUD_NAME;
 const CLDNRY_API_KEY = process.env.CLDNRY_API_KEY;
 const CLDNRY_API_SECRET = process.env.CLDNRY_API_SECRET;
 
+
+const stripe = require('stripe')(process.env.STRIPE_SK);
 app.use(cookieParser());
 app.use(express.static('static'))
 app.use(express.urlencoded({ extended: "true" }));
@@ -238,6 +240,9 @@ app.get("/products", async (req, res) => {
         let productName = req.query.title;
         if (query) {
             let filteredProducts = await product.find({ productCategory: `${query}` });
+            for (let i = 0; i < filteredProducts.length; i++) {
+                filteredProducts[i].discountedPrice = Math.round(filteredProducts[i].productMRP * 0.8);
+            }
             res.status(200).render("productPage", { filteredProducts });
         } else if (productName) {
             let filteredProducts = await product.find({ $text: { $search: productName } });
@@ -246,12 +251,17 @@ app.get("/products", async (req, res) => {
                 let notFound = [{ "title": "Not Found" }];
                 res.status(200).render("productPage", { notFound });
             } else {
-
+                for (let i = 0; i < filteredProducts.length; i++) {
+                    filteredProducts[i].discountedPrice = Math.round(filteredProducts[i].productMRP * 0.8);
+                }
                 res.status(200).render("productPage", { filteredProducts });
             }
         }
         else {
             let allProducts = await product.find({});
+            for (let i = 0; i < allProducts.length; i++) {
+                allProducts[i].discountedPrice = Math.round(allProducts[i].productMRP * 0.8);
+            }
 
             res.status(200).render("productPage", { allProducts });
         }
@@ -320,6 +330,7 @@ app.get('/cart', fetchuser, async (req, res) => {
     for (i = 0; i < cartItems.length; i++) {
         const newObj = {};
         let productObj = await product.find({ _id: cartItems[i].productId });
+        newObj.productId = cartItems[i].productId;
         newObj.productTitle = productObj[0].productTitle;
         newObj.productImage = productObj[0].productImage;
         newObj.productMRP = Math.round((productObj[0].productMRP / 100) * 80) * cartItems[i].qty;
@@ -329,6 +340,9 @@ app.get('/cart', fetchuser, async (req, res) => {
         newObj.cartItemId = (cartItems[i]._id).toString();
         arr.push(newObj);
     }
+
+
+
     let shippingCharge = Math.round((totalPrice * 2) / 100);
     let gross = totalPrice + shippingCharge;
     let arr2 = [{ totalPrice, shippingCharge, gross }];
@@ -345,13 +359,20 @@ app.get('/cart', fetchuser, async (req, res) => {
 //api for productDeletion
 app.delete('/dashboard/listedbooks/delete/:id', fetchuser, async (req, res) => {
     try {
-        await product.findByIdAndDelete(req.params.id, function (err, docs) {
+        await product.findByIdAndDelete(req.params.id, async function (err, docs) {
             if (err) {
                 res.status(404).send("Something Went Wrong!!");
             } else {
-                res.status(200).json({ done: true });
+
+                //DO SOMETHING HERE FOR DELETING ITEMS FROM CART AS WELL
+                let val = await cart.deleteOne({ productId: req.params.id });
+                if (val.acknowledged) {
+                    return res.status(200).json({ done: true });
+                }
+                res.status(404).send("Something Went Wrong!!");
             }
         }).clone();
+
     } catch (error) {
         res.status(404).send("Something Went Wrong!!");
     }
@@ -391,6 +412,106 @@ app.put('/dashboard/listedbooks/update/:id', fetchuser, async (req, res) => {
 })
 
 
+
+// *****************************************************************************************************************************
+// *********************************************** STRIPE RELATED API's  *******************************************************
+// *****************************************************************************************************************************
+app.post('/create-checkout-session', async (req, res) => {
+    let productsArray = [];
+    let arr = req.body.productsArray;
+    for (let i = 0; i < arr.length; i++) {
+        productsArray[i] = {
+            price_data: {
+                currency: 'inr',
+                product_data: {
+                    name: arr[i].productTitle,
+                    images: [arr[i].productImage],
+                    description: arr[i].productDescription,
+                    metadata: {
+                        id: arr[i].cartItemId
+                    }
+                },
+                unit_amount: arr[i].productMRP * 100,
+            },
+            quantity: arr[i].qty,
+        }
+    }
+
+
+    const session = await stripe.checkout.sessions.create({
+        line_items: productsArray,
+        shipping_address_collection: { allowed_countries: ['IN'] },
+        phone_number_collection: { enabled: true },
+        shipping_options: [
+            {
+                shipping_rate_data: {
+                    type: 'fixed_amount',
+                    fixed_amount: {
+                        amount: req.body.shippingCharge * 100,
+                        currency: 'inr',
+                    },
+                    display_name: 'DelhiVery',
+                    delivery_estimate: {
+                        minimum: {
+                            unit: 'business_day',
+                            value: 2,
+                        },
+                        maximum: {
+                            unit: 'business_day',
+                            value: 5,
+                        },
+                    },
+                },
+            },
+        ],
+        mode: 'payment',
+        success_url: 'http://localhost:3000/checkout-Success',
+        cancel_url: 'http://localhost:3000/checkout-Failed',
+    });
+    res.status(303).json({ url: session.url });
+});
+
+
+app.get('/checkout-Success', (req, res) => {
+    res.status(200).render('CheckoutSuccess');
+})
+app.get('/checkout-Failed', (req, res) => {
+    res.status(200).render('CheckoutFailed');
+})
+
+// app.get('*', (req, res) => {
+//     res.status(404).send("404 not found");
+// })
+
+
+// ***get checkout item details
+app.get('/checkout-items', fetchuser, async (req, res) => {
+    let cartItems = await cart.find({ userId: req.body.user });
+    if (cartItems) {
+        const userId = req.body.user;
+        let arr = [];
+        let totalPrice = 0;
+        for (i = 0; i < cartItems.length; i++) {
+            const newObj = {};
+            let productObj = await product.find({ _id: cartItems[i].productId });
+            newObj.productTitle = productObj[0].productTitle;
+            newObj.productImage = productObj[0].productImage;
+            newObj.productMRP = Math.round((productObj[0].productMRP / 100) * 80);
+            totalPrice += Math.round((productObj[0].productMRP / 100) * 80) * cartItems[i].qty;
+            newObj.productCategory = productObj[0].productCategory;
+            newObj.qty = cartItems[i].qty;
+            newObj.cartItemId = (cartItems[i]._id).toString();
+            arr.push(newObj);
+        }
+
+
+        let shippingCharge = Math.round((totalPrice * 2) / 100);
+        // let gross = totalPrice + shippingCharge;
+        // let arr2 = [{ totalPrice, shippingCharge, gross }];
+        return res.status(200).json({ arr, userId, shippingCharge });
+    }
+    res.status(404).send("failed");
+})
 app.listen(port, () => {
     console.log(`app is running at http://localhost:${port}`);
 })

@@ -7,7 +7,7 @@
             <p>Price : Rs. <span id="price">{{productMRP}}</span></p>
             <p>Quantity : <span id="price">{{productQuantity}}</span></p>
             <div class="btn-wrapper">
-                <button class="card-btn buy-btn">Buy</button>
+                <button class="card-btn buy-btn" onclick="buyBtnHandler('{{productId}}')">Buy</button>
                 <button class=" card-btn remove-btn" onclick="handleCartRemove('{{cartItemId}}')">Remove</button>
             </div>
         </div>

@@ -150,7 +150,7 @@ const func = async (arg) => {
         <p id="productDescription"><span>About Product : </span>${obj.productDescription} </p>
         <h4 id="actualPrice"><span>Actual Price : </span>Rs. ${obj.productMRP}</h4>
         <h4 id="discountedPrice"><span>Discounted Price : </span>Rs. ${discountedPrice}</h4>
-        <button id="buyBtn" class="primary-btn">Buy</button>
+        <button id="buyBtn" class="primary-btn" onclick="buyBtnHandler('${obj._id}')">Buy</button>
         <button id="addToCartBtn" class="primary-btn" onclick="cartClickHandler('${obj._id}')" >Add To cart</button>
     </div>`;
     }).catch(() => {
@@ -200,3 +200,6 @@ searchBtn.addEventListener("click", (e) => {
     let s = document.getElementById("search-box");
     location.href = `${BaseUrl}/products?title=${s.value}`;
 })
+
+
+

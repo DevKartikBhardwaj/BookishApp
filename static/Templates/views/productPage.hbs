@@ -37,14 +37,14 @@
                     <h3 class="card-title">{{this.productTitle}}</h3>
                     <p class="category">Category : <span>{{this.productCategory}}</span> </p>
                     <p class="actualPrice">Actual Price : Rs.{{this.productMRP}}</p>
-                    <p class="price">Discounted Price : Rs. {{this.productMRP}} </p>
+                    <p class="price">Discounted Price : Rs. {{this.discountedPrice}} </p>
                     <div class="btn-wrapper">
-
                         <button class="card-btn" style="background-color: orange;  "
                             onclick="func('{{this._id}}')">View</button>
-                        <button class="card-btn" style="background-color: blue;">Buy</button>
+                        <button class="card-btn" style="background-color: blue;"
+                            onclick="buyBtnHandler('{{this._id}}')">Buy</button>
                         <button class="card-btn" style="background-color: red; "
-                            onclick="cartClickHandler('{{this._id}}')">AddTo Cart</button>
+                            onclick=cartClickHandler('{{this._id}}')>AddTo Cart</button>
                     </div>
                 </div>
             </div>
@@ -58,11 +58,13 @@
                     <h3 class="card-title">{{this.productTitle}}</h3>
                     <p class="category">Category : <span>{{this.productCategory}}</span> </p>
                     <p class="actualPrice">Actual Price : Rs.{{this.productMRP}}</p>
-                    <p class="price">Discounted Price : Rs. {{this.productMRP}} </p>
+                    <p class="price">Discounted Price : Rs. {{this.discountedPrice}} </p>
                     <div class="btn-wrapper">
 
-                        <button class="card-btn" style="background-color: orange;  ">View</button>
-                        <button class="card-btn" style="background-color: blue;">Buy</button>
+                        <button class="card-btn" style="background-color: orange; "
+                            onclick="func('{{this._id}}')">View</button>
+                        <button class="card-btn" style="background-color: blue;"
+                            onclick="buyBtnHandler('{{this._id}}')">Buy</button>
                         <button class="card-btn" style="background-color: red; "
                             onclick="cartClickHandler('{{this._id}}')">AddTo Cart</button>
                     </div>
@@ -74,9 +76,11 @@
     </div>
     {{>Footer}}
 
-    <script src="https://kit.fontawesome.com/cbd1f95b02.js" crossorigin="anonymous"></script>
-    <script src="../../script/product.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+<script></script>
+<script src="https://kit.fontawesome.com/cbd1f95b02.js" crossorigin="anonymous"></script>
+<script src="../../script/product.js"></script>
+<script src="../../script/buyBtn.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>
