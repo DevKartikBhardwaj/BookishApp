@@ -140,6 +140,7 @@ body {
     background-color: gray;
     height: 25vh;
     text-align: center;
+    overflow: hidden;
 }
 
 .img-frame>img {

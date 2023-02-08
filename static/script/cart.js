@@ -26,6 +26,7 @@ const handleCartRemove = (arg) => {
 // *****In this i used nested fetch requests
 
 const handleCheckout = () => {
+    loader();
     fetch('http://localhost:3000/checkout-items', {
         method: 'GET',
         headers: {
@@ -58,3 +59,8 @@ const handleCheckout = () => {
 
 }
 
+
+const loader = () => {
+    const loader = document.getElementById("loader");
+    loader.style.display = "block";
+}

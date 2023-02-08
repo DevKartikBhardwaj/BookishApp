@@ -1,5 +1,3 @@
-// ********************MISTAKES THAT I HAVE DONE DURING DEVELOPMENT
-//*********************((1.))I used ` objectId(<key>)` instead of <key> everywhere in the repository
 
 require('dotenv').config();
 const express = require("express");
@@ -40,7 +38,6 @@ cloudinary.config({
 
 require("./src/db/conn")
 
-
 app.use(fileUpload({
     useTempFiles: true
 }))
@@ -53,6 +50,7 @@ const { response, json } = require('express');
 const { isObjectIdOrHexString } = require('mongoose');
 const { findByIdAndUpdate } = require('./src/models/User');
 const { findByIdAndDelete } = require('./src/models/cart');
+
 
 
 app.get("/", async (req, res) => {
@@ -506,8 +504,6 @@ app.get('/checkout-items', fetchuser, async (req, res) => {
 
 
         let shippingCharge = Math.round((totalPrice * 2) / 100);
-        // let gross = totalPrice + shippingCharge;
-        // let arr2 = [{ totalPrice, shippingCharge, gross }];
         return res.status(200).json({ arr, userId, shippingCharge });
     }
     res.status(404).send("failed");

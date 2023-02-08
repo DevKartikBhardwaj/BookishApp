@@ -195,7 +195,9 @@ const cartClickHandler = (arg) => {
 //search button click handler
 
 let searchBtn = document.getElementById("search-btn");
+
 searchBtn.addEventListener("click", (e) => {
+    console.log("clicked");
     e.preventDefault();
     let s = document.getElementById("search-box");
     location.href = `${BaseUrl}/products?title=${s.value}`;
