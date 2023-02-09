@@ -12,7 +12,7 @@ const path = require("path");
 const { body, validationResult } = require('express-validator');
 const app = express();
 const fetchuser = require("./middleware/fetchuser");
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET_STRING;
 const CLDNRY_CLOUD_NAME = process.env.CLDNRY_CLOUD_NAME;
 const CLDNRY_API_KEY = process.env.CLDNRY_API_KEY;
@@ -508,7 +508,7 @@ app.get('/checkout-items', fetchuser, async (req, res) => {
     }
     res.status(404).send("failed");
 })
-app.listen(process.env.PORT || port, () => {
+app.listen(port, () => {
     console.log(`app is running at http://localhost:${port}`);
 })
 
