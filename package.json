@@ -4,7 +4,8 @@
   "description": "This appilacation is going to be used for buying and selling old notebooks>",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "build": "webpack build"
   },
   "author": "Kartik Bhardwaj",
   "license": "ISC",
