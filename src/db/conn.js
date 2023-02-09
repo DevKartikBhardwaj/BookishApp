@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 
 async function main() {
-    console.log(process.env.MONGO_URI);
-    await mongoose.connect(`${process.env.MONGO_URI}`);
+    await mongoose.connect('mongodb://localhost:27017/Bookish');
     console.log("mongoose is connected");
 
 }
