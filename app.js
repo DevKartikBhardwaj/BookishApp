@@ -508,7 +508,7 @@ app.get('/checkout-items', fetchuser, async (req, res) => {
     }
     res.status(404).send("failed");
 })
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`app is running at http://localhost:${port}`);
 })
 
