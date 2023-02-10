@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET_STRING;
 const CLDNRY_CLOUD_NAME = process.env.CLDNRY_CLOUD_NAME;
 const CLDNRY_API_KEY = process.env.CLDNRY_API_KEY;
 const CLDNRY_API_SECRET = process.env.CLDNRY_API_SECRET;
-
+let BaseUrl = "https://bookish-8avz.onrender.com";
 
 const stripe = require('stripe')(process.env.STRIPE_SK);
 app.use(cookieParser());
@@ -463,8 +463,8 @@ app.post('/create-checkout-session', async (req, res) => {
             },
         ],
         mode: 'payment',
-        success_url: 'http://localhost:3000/checkout-Success',
-        cancel_url: 'http://localhost:3000/checkout-Failed',
+        success_url: `${BaseUrl}/checkout-Success`,
+        cancel_url: `${BaseUrl}/checkout-Failed`,
     });
     res.status(303).json({ url: session.url });
 });
@@ -509,7 +509,7 @@ app.get('/checkout-items', fetchuser, async (req, res) => {
     res.status(404).send("failed");
 })
 app.listen(port, () => {
-    console.log(`app is running at http://localhost:${port}`);
+    console.log(`app is running at ${port}`);
 })
 
 
