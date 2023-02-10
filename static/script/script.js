@@ -1,4 +1,4 @@
-const BaseUrl = "http://localhost:3000";
+const BaseUrl = "https://bookish-8avz.onrender.com";
 let banner = document.getElementsByClassName("banner-img");
 let dots = document.getElementsByClassName("banner-navigation");
 Array.from(banner).forEach((element) => {
@@ -172,7 +172,7 @@ const handleCloseBtn = () => {
 
 
 const cartClickHandler = (arg) => {
-    fetch(`http://localhost:3000/cart/${arg}`).then((response) => {
+    fetch(`${BaseUrl}/cart/${arg}`).then((response) => {
         return response.json();
     }).then((data) => {
         if (data.success) {

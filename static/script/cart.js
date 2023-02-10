@@ -1,7 +1,7 @@
-const BaseUrl = "http://localhost:3000";
+let BaseUrl = "https://bookish-8avz.onrender.com";
 
 const handleCartRemove = (arg) => {
-    fetch(`http://localhost:3000/deleteCart/${arg}`, {
+    fetch(`${BaseUrl}/deleteCart/${arg}`, {
         method: 'DELETE',
         headers: {
             'Content-type': 'application/json'
@@ -15,7 +15,7 @@ const handleCartRemove = (arg) => {
                 '',
                 'success'
             ).then(() => {
-                location.href = 'http://localhost:3000/cart';
+                location.href = `${BaseUrl}/cart`;
             })
         }
     })
@@ -27,7 +27,7 @@ const handleCartRemove = (arg) => {
 
 const handleCheckout = () => {
     loader();
-    fetch('http://localhost:3000/checkout-items', {
+    fetch(`${BaseUrl}/checkout-items`, {
         method: 'GET',
         headers: {
             "content-type": "application/json"
@@ -42,7 +42,7 @@ const handleCheckout = () => {
         }
 
         //request for creating checkout sessions
-        return fetch('http://localhost:3000/create-checkout-session', {
+        return fetch(`${BaseUrl}/create-checkout-session`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

@@ -1,4 +1,5 @@
 //toggling login and logout btns
+let BaseUrl = "https://bookish-8avz.onrender.com";
 let scrollList = document.getElementById("scrollListPack");
 if (document.cookie.indexOf("jsonwebtok") == 0) {
 
@@ -33,5 +34,5 @@ document.cookie.indexOf("jsonwebtok") == 0 && logoutBtn.addEventListener("click"
             .reduceRight((acc, val, i, arr) => i ? arr[i] = '.' + val + acc : (arr[i] = '', arr), '')
             .map(domain => document.cookie = `${name}=;max-age=0;path=/;domain=${domain}`)
     );
-    location.href = "http://localhost:3000/"
+    location.href = `${BaseUrl}/`
 })

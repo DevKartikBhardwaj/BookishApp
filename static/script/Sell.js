@@ -1,4 +1,4 @@
-const Base_URL = "http://localhost:3000";
+let BaseUrl = "https://bookish-8avz.onrender.com";
 const sellerForm = document.querySelector("#sellers-form");
 const submitBtn = document.querySelector("#product-submit-btn");
 const array = document.getElementsByClassName("form-input-data");
@@ -29,7 +29,7 @@ const fetchedFormData = () => {
     formData.append('productDescription', array[3].value);
     formData.append('productImage', fileField.files[0]);
 
-    fetch(`${Base_URL}/sell`, {
+    fetch(`${BaseUrl}/sell`, {
         method: 'POST',
         body: formData
     }).then((response) => {
@@ -40,9 +40,9 @@ const fetchedFormData = () => {
         if (data.success == true) {
             swal("Success!", "Product Listing Successfull", "success").then((value) => {
                 if (value) {
-                    location.href = `${Base_URL}/`;
+                    location.href = `${BaseUrl}/`;
                 } else {
-                    location.href = `${Base_URL}/`;
+                    location.href = `${BaseUrl}/`;
                 }
             });
         }

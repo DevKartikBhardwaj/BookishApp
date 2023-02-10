@@ -1,4 +1,4 @@
-
+let BaseUrl = "https://bookish-8avz.onrender.com";
 let signupForm = document.getElementById('signupForm');
 
 function modal(errorInfo, bgColour) {
@@ -30,7 +30,7 @@ signupForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(data)
         }).then((response) => { return response.json() }).then((data) => {
             if (data.success) {
-                location.href = "http://localhost:3000/login";
+                location.href = `${BaseUrl}/login`;
                 // localStorage.setItem('token', data.authtoken);
             }
             if (!data.success && !data.cPassword) {

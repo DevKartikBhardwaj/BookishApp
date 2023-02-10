@@ -1,4 +1,4 @@
-const BaseUrl = "http://localhost:3000";
+let BaseUrl = "https://bookish-8avz.onrender.com";
 const func = async (arg) => {
     await fetch(`${BaseUrl}/product/${arg}`).then((response) => {
         return response.json();
@@ -29,7 +29,7 @@ const handleCloseBtn = () => {
 
 
 const cartClickHandler = (arg) => {
-    fetch(`http://localhost:3000/cart/${arg}`).then((response) => {
+    fetch(`${BaseUrl}/cart/${arg}`).then((response) => {
         return response.json();
     }).then((data) => {
         if (data.success) {

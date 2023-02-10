@@ -1,4 +1,4 @@
-
+let BaseUrl = "https://bookish-8avz.onrender.com";
 let loginForm = document.getElementById('loginForm');
 
 function modal(errorInfo, bgColour) {
@@ -28,7 +28,7 @@ loginForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(data)
         }).then((response) => { return response.json() }).then((data) => {
             if (data.success) {
-                location.href = "http://localhost:3000/";
+                location.href = `${BaseUrl}/`;
             }
             if (!data.success) {
                 modal("Invalid Credentials", "blue");

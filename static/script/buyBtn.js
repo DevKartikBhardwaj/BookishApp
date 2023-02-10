@@ -1,5 +1,5 @@
 //BuyButton Handler
-
+let BaseUrl = "https://bookish-8avz.onrender.com";
 const buyBtnHandler = async (arg) => {
     fetch(`${BaseUrl}/product/${arg}`).then((response) => {
         return response.json();
@@ -16,7 +16,7 @@ const buyBtnHandler = async (arg) => {
         }
 
         //request for creating checkout sessions
-        return fetch('http://localhost:3000/create-checkout-session', {
+        return fetch(`${BaseUrl}/create-checkout-session`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
