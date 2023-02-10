@@ -1,5 +1,5 @@
 //BuyButton Handler
-let BaseUrl = "https://bookish-8avz.onrender.com";
+// let BaseUrl = "https://bookish-8avz.onrender.com";
 const buyBtnHandler = async (arg) => {
     fetch(`${BaseUrl}/product/${arg}`).then((response) => {
         return response.json();
