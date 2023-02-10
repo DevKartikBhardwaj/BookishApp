@@ -264,7 +264,7 @@ app.get("/products", async (req, res) => {
             res.status(200).render("productPage", { allProducts });
         }
     } catch (err) {
-        res.status(404).send("404 : something bad has happend");
+        res.status(404).send(err);
     }
 })
 
