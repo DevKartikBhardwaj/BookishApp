@@ -60,7 +60,7 @@ app.get("/", async (req, res) => {
     let Ncert = await product.find({ productCategory: "NCERT" }, { productImage: 1 }).limit(7);
     let CExams = await product.find({ productCategory: "Competetive-Exams" }, { productImage: 1 }).limit(7);
     let Others = await product.find({ productCategory: "Others" }, { productImage: 1 }).limit(7);
-
+    console.log(await product.find({}));
     res.status(200).render("Home", { Engineering, Medical, Law, Ncert, CExams, Others });
 
 })
