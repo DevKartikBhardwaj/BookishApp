@@ -1,4 +1,4 @@
-const BaseUrl = "https://bookish-8avz.onrender.com";
+let BaseUrl = "https://bookish-8avz.onrender.com";
 let banner = document.getElementsByClassName("banner-img");
 let dots = document.getElementsByClassName("banner-navigation");
 Array.from(banner).forEach((element) => {
