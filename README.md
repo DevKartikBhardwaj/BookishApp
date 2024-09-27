@@ -1,10 +1,9 @@
 
 # Bookish
 
-
 •	Bookish is an ecommerce platform dedicated to the buying and selling of both pre-owned and firsthand books.\
 •	Impact - •	This will help in providing 50% more prices while selling and 50% less prices while buying the books. (200-800).\
-\
+
 
 **Please wait, It may take some time to load because it's hosted on a free server
 Live preview : - [Bookish](https://bookish-8avz.onrender.com/)
@@ -21,9 +20,25 @@ Live preview : - [Bookish](https://bookish-8avz.onrender.com/)
 
   ## Home Page
 
-![screencapture-localhost-5173-2023-10-02-18_33_29](https://github.com/DevKartikBhardwaj/coinstein/assets/102840713/d04569b0-a85c-41d2-ab7a-6178f60cae25)
+![screencapture-localhost-5173-2023-10-02-18_33_29](https://res.cloudinary.com/dwhf5f08p/image/upload/v1727404819/home_sxyyxz.png)
 
 
-  ## Single Coin Page
+  ## Cart Page
 
-  ![screencapture-localhost-5173-bitcoin-2023-10-02-18_34_05](https://github.com/DevKartikBhardwaj/coinstein/assets/102840713/f9a95685-5531-4390-bde4-51aee9fb3dc5)
+  ![screencapture-localhost-5173-bitcoin-2023-10-02-18_34_05](https://res.cloudinary.com/dwhf5f08p/image/upload/v1727404745/cart_grysy4.png)
+
+   ## Payment Page
+
+  ![screencapture-localhost-5173-bitcoin-2023-10-02-18_34_05](https://res.cloudinary.com/dwhf5f08p/image/upload/v1727404739/payment_iyu2fg.png)
+
+  ## Sell Page
+
+  ![screencapture-localhost-5173-bitcoin-2023-10-02-18_34_05](https://res.cloudinary.com/dwhf5f08p/image/upload/v1727404740/sell_page_cfyld1.png)
+
+  ## Signup Page
+
+  ![screencapture-localhost-5173-bitcoin-2023-10-02-18_34_05](https://res.cloudinary.com/dwhf5f08p/image/upload/v1727404751/signup_i3ckmz.png)
+
+  ## Login Page
+
+  ![screencapture-localhost-5173-bitcoin-2023-10-02-18_34_05](https://res.cloudinary.com/dwhf5f08p/image/upload/v1727404762/login_q3ud2j.png)
