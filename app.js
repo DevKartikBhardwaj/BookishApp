@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET_STRING;
 const CLDNRY_CLOUD_NAME = process.env.CLDNRY_CLOUD_NAME;
 const CLDNRY_API_KEY = process.env.CLDNRY_API_KEY;
 const CLDNRY_API_SECRET = process.env.CLDNRY_API_SECRET;
-let BaseUrl = "https://bookish-8avz.onrender.com";
+let BaseUrl = "https://bookish-pbl6.onrender.com/";
 
 const stripe = require('stripe')(process.env.STRIPE_SK);
 app.use(cookieParser());
