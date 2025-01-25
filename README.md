@@ -1,12 +1,12 @@
 
-# Bookish
+# Bookish(TEMPORARY DOWN- OFFLINE)
 
 •	Bookish is an ecommerce platform dedicated to the buying and selling of both pre-owned and firsthand books.\
 •	Impact - This will help in providing 50% more prices while selling and 50% less prices while buying the books. (200-800).
 
 
 **Please wait, It may take some time to load because it's hosted on a free server\
-Live preview : - [Bookish](https://bookish-8avz.onrender.com/)
+Live preview : - [Bookish](NO PREVIEW)
 
 
 ## Tech Stack
